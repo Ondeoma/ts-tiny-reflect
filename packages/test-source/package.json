@@ -1,0 +1,20 @@
+{
+  "name": "test-source",
+  "version": "0.1.0",
+  "private": "true",
+  "type": "module",
+  "scripts": {
+    "prepare": "ts-patch install -s",
+    "build": "tspc",
+    "prettier": "prettier src --check",
+    "prettier:fix": "prettier src --write"
+  },
+  "devDependencies": {
+    "ts-patch": "^3.3.0",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@ondeoma/ts-tiny-reflect": "^0.0.0",
+    "@ondeoma/ts-print": "^0.0.0"
+  }
+}

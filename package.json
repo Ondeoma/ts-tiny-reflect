@@ -8,6 +8,8 @@
     "build": "npm run build -w @ondeoma/ts-tiny-reflect",
     "test": "npm run test -w @ondeoma/ts-tiny-reflect",
     "test:watch": "npm run test:watch -w @ondeoma/ts-tiny-reflect",
+    "prepare:test-source": "npm run prepare -w test-source",
+    "build:test-source": "npm run build -w test-source",
     "eslint": "eslint",
     "eslint:fix": "eslint --fix",
     "prettier": "npm run prettier --workspaces",
@@ -25,6 +27,7 @@
     "jiti": "^2.6.1",
     "prettier": "^3.6.2",
     "shx": "^0.4.0",
-    "typescript-eslint": "^8.46.3"
+    "typescript-eslint": "^8.46.3",
+    "vitest": "^4.0.16"
   }
 }

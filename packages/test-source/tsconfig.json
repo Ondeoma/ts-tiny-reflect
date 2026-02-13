@@ -1,23 +1,22 @@
 {
-  // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
+    "outDir": "./dist",
+
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
     "module": "nodenext",
     "target": "esnext",
     "lib": ["esnext"],
-    "types": ["node"],
 
     // Other Outputs
-    "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
+    "sourceMap": false,
+    "declaration": false,
+    "declarationMap": false,
 
     // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
 
-    // Recommended Options
     "strict": true,
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
@@ -25,5 +24,16 @@
     "skipLibCheck": true,
 
     "esModuleInterop": true,
+
+    // Transformers
+    "plugins": [
+      {"transform": "@ondeoma/ts-tiny-reflect"},
+      {
+        "transform": "@ondeoma/ts-print",
+        "inputDir": "",
+        "outputDir": "transformed"
+      },
+    ]
   },
+  "include": ["**/*"]
 }
