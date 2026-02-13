@@ -1,0 +1,40 @@
+{
+  "name": "@ondeoma/ts-tiny-reflect",
+  "version": "0.0.0",
+  "description": "Reflection for TypeScript",
+  "main": "dist/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepack": "shx cp ../../README.md . && shx cp ../../LICENSE .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prettier": "prettier src --check",
+    "prettier:fix": "prettier src --write"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ondeoma/ts-tiny-reflect.git"
+  },
+  "author": "hyranno",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Ondeoma/ts-tiny-reflect/issues"
+  },
+  "homepage": "https://github.com/Ondeoma/ts-tiny-reflect#readme",
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.9.2",
+    "ts-patch": "^3.3.0",
+    "vitest": "^4.0.16"
+  }
+}
