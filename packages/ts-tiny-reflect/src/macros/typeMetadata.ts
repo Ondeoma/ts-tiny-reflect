@@ -318,7 +318,10 @@ function tryIntoObjectTypeMeta(
   }
 }
 
-function extractTypeArguments(context: ContextBag, node: ts.CallExpression): readonly ts.Type[] | undefined {
+function extractTypeArguments(
+  context: ContextBag,
+  node: ts.CallExpression,
+): readonly ts.Type[] | undefined {
   const originalCallExpression = ts.getOriginalNode(node);
   if (!ts.isCallExpression(originalCallExpression)) {
     return undefined;
@@ -376,7 +379,12 @@ export const objectMetadata = ((
       return node;
     }
 
-    const metadata = tryIntoObjectTypeMeta(context, typeArgs[0]!, node, new Set());
+    const metadata = tryIntoObjectTypeMeta(
+      context,
+      typeArgs[0]!,
+      node,
+      new Set(),
+    );
     if (!metadata) {
       const diag = DiagnosticMessage.MismatchWithTypeAssumptions();
       context.extra.addDiagnostic(createDiagnostic(node, diag));
