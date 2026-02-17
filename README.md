@@ -1,4 +1,6 @@
 # ts-tiny-reflect
+This is a Source Transformer that allows you to get type metadata in TypeScript.
+It is designed for use with [ts-patch](https://github.com/nonara/ts-patch).
 
 ## Usage
 
@@ -15,5 +17,29 @@ Add it to your `tsconfig.json`:
 }
 ```
 
+### 2. Writing code
+**In your code:**
+```typescript
+import tiny_reflect from "@ondeoma/ts-tiny-reflect/macros";
+tiny_reflect.typeMetadata<[number, string]>();
+```
 
-## Notes
+**Transformed result:**
+```typescript
+import tiny_reflect from "@ondeoma/ts-tiny-reflect/macros";
+({
+    "kind": "tuple",
+    "elements": [
+        {
+            "kind": "primitive",
+            "typeName": "number"
+        },
+        {
+            "kind": "primitive",
+            "typeName": "string"
+        }
+    ]
+});
+```
+
+See `packages/tis-tiny-reflect/macros` for full list of macros.
