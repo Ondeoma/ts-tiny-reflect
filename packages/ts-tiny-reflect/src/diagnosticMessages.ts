@@ -70,4 +70,11 @@ export const DiagnosticMessage = {
       messageText: `Getting type arguments failed.`,
     };
   },
+  MismatchWithTypeAssumptions() {
+    return {
+      category: ts.DiagnosticCategory.Error,
+      code: 26005,
+      messageText: `Mismatch with type assumptions.`,
+    };
+  },
 } satisfies Record<string, (params: any) => DiagnosticMessage>; // eslint-disable-line @typescript-eslint/no-explicit-any

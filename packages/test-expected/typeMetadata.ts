@@ -15,6 +15,11 @@ import tiny_reflect from "@ondeoma/ts-tiny-reflect/macros";
 });
 
 ({
+    "kind": "literal",
+    "value": true
+});
+
+({
     "kind": "tuple",
     "elements": [
         {
@@ -74,6 +79,30 @@ type SimpleObj = {
         }
     ]
 });
+({
+    "kind": "object",
+    "name": "SimpleObj",
+    "members": [
+        {
+            "name": "num",
+            "type": {
+                "kind": "primitive",
+                "typeName": "number"
+            },
+            "optional": false,
+            "readonly": false
+        },
+        {
+            "name": "str",
+            "type": {
+                "kind": "primitive",
+                "typeName": "string"
+            },
+            "optional": false,
+            "readonly": false
+        }
+    ]
+});
 
 type ComplexObj = {
     tuple: [
@@ -82,6 +111,62 @@ type ComplexObj = {
     ];
     arrObj?: SimpleObj[];
 };
+({
+    "kind": "object",
+    "name": "ComplexObj",
+    "members": [
+        {
+            "name": "tuple",
+            "type": {
+                "kind": "tuple",
+                "elements": [
+                    {
+                        "kind": "primitive",
+                        "typeName": "number"
+                    },
+                    {
+                        "kind": "primitive",
+                        "typeName": "string"
+                    }
+                ]
+            },
+            "optional": false,
+            "readonly": false
+        },
+        {
+            "name": "arrObj",
+            "type": {
+                "kind": "array",
+                "type": {
+                    "kind": "object",
+                    "name": "SimpleObj",
+                    "members": [
+                        {
+                            "name": "num",
+                            "type": {
+                                "kind": "primitive",
+                                "typeName": "number"
+                            },
+                            "optional": false,
+                            "readonly": false
+                        },
+                        {
+                            "name": "str",
+                            "type": {
+                                "kind": "primitive",
+                                "typeName": "string"
+                            },
+                            "optional": false,
+                            "readonly": false
+                        }
+                    ]
+                }
+            },
+            "optional": true,
+            "readonly": false
+        }
+    ]
+});
 ({
     "kind": "object",
     "name": "ComplexObj",

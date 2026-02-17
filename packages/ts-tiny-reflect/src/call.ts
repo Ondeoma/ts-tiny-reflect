@@ -4,12 +4,13 @@ import path from "node:path";
 
 import { ContextBag, MacroVisitorCreator, Options } from "./common";
 import { hello } from "./macros/hello";
-import { typeMetadata } from "./macros/typeMetadata";
+import { objectMetadata, typeMetadata } from "./macros/typeMetadata";
 import { createDiagnostic, DiagnosticMessage } from "./diagnosticMessages";
 
 const macroVisitorCreators: Record<string, MacroVisitorCreator> = {
   hello,
   typeMetadata,
+  objectMetadata,
 };
 
 function createMacroVisitor(
