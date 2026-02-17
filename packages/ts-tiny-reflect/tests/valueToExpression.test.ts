@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll, assert } from 'vitest';
+import { describe, it, expect } from 'vitest';
 
 import ts from "typescript";
 import {valueToExpression, SerializableValue} from "../src/utils"

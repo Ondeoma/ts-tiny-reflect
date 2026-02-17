@@ -7,12 +7,10 @@ import { hello } from "./macros/hello";
 import { typeMetadata } from "./macros/typeMetadata";
 import { createDiagnostic, DiagnosticMessage } from "./diagnosticMessages";
 
-
 const macroVisitorCreators: Record<string, MacroVisitorCreator> = {
   hello,
   typeMetadata,
 };
-
 
 function createMacroVisitor(
   context: ContextBag,
@@ -36,7 +34,10 @@ function createMacroVisitor(
   const { name } = context.checker.getTypeAtLocation(declaration).symbol;
   const creator = macroVisitorCreators[name];
   if (!creator) {
-    const diag = createDiagnostic(node, DiagnosticMessage.NotImplementedMacro(name));
+    const diag = createDiagnostic(
+      node,
+      DiagnosticMessage.NotImplementedMacro(name),
+    );
     context.extra.addDiagnostic(diag);
     return undefined;
   }
@@ -44,9 +45,7 @@ function createMacroVisitor(
   return visitor;
 }
 
-function createCallVisitor(
-  context: ContextBag,
-): ts.Visitor {
+function createCallVisitor(context: ContextBag): ts.Visitor {
   const visitor: ts.Visitor = (node: ts.Node) => {
     const macroVisitor = createMacroVisitor(context, node);
     if (macroVisitor) {
@@ -80,9 +79,7 @@ export function callTransformer(
         transformer: transformationContext,
         extra,
       } satisfies ContextBag;
-      const visitor = createCallVisitor(
-        context,
-      );
+      const visitor = createCallVisitor(context);
       return (
         ts.visitNode(sourceFile, visitor, ts.isSourceFile) ??
         ts.factory.updateSourceFile(sourceFile, [])

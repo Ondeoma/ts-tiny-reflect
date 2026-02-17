@@ -1,7 +1,7 @@
 import ts, { CallExpression } from "typescript";
 import type { TransformerExtras } from "ts-patch";
 
-export type Options = {};
+export type Options = {}; // eslint-disable-line @typescript-eslint/no-empty-object-type
 
 export interface ContextBag {
   options: Options;
@@ -14,4 +14,7 @@ export interface ContextBag {
   extra: TransformerExtras;
 }
 
-export type MacroVisitorCreator = (context: ContextBag, call: CallExpression) => ((node: ts.Node) => ts.Node | undefined)
+export type MacroVisitorCreator = (
+  context: ContextBag,
+  call: CallExpression,
+) => (node: ts.Node) => ts.Node | undefined;

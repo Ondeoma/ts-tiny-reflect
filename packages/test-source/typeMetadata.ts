@@ -10,8 +10,8 @@ tiny_reflect.typeMetadata<[number, string]>();
 
 tiny_reflect.typeMetadata<string[]>();
 
-function voidFn() {}
-tiny_reflect.typeMetadata<typeof voidFn>();
+function _voidFn() {}
+tiny_reflect.typeMetadata<typeof _voidFn>();
 
 type SimpleObj = {
   num: number;

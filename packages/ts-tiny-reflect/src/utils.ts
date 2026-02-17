@@ -32,22 +32,22 @@ export function isTypeReference(type: ts.ObjectType): type is ts.TypeReference {
   return (type.objectFlags & ts.ObjectFlags.Reference) !== 0;
 }
 
-export type SerializableValue = 
-  | null 
-  | undefined 
-  | boolean 
-  | number 
-  | string 
+export type SerializableValue =
+  | null
+  | undefined
+  | boolean
+  | number
+  | string
   | SerializableValue[]
   | { [key: string]: SerializableValue };
 
 export function valueToExpression(value: SerializableValue): ts.Expression {
   if (value === null) {
-    return ts.factory.createNull()
+    return ts.factory.createNull();
   }
 
   if (value === undefined) {
-    return ts.factory.createIdentifier("undefined")
+    return ts.factory.createIdentifier("undefined");
   }
 
   if (typeof value === "boolean") {
@@ -63,7 +63,10 @@ export function valueToExpression(value: SerializableValue): ts.Expression {
   }
 
   if (Array.isArray(value)) {
-    return ts.factory.createArrayLiteralExpression(value.map(valueToExpression), true);
+    return ts.factory.createArrayLiteralExpression(
+      value.map(valueToExpression),
+      true,
+    );
   }
 
   if (typeof value === "object") {
@@ -72,21 +75,18 @@ export function valueToExpression(value: SerializableValue): ts.Expression {
 
   const _exhaustive: never = value;
   throw new TypeError("Error on valueToExpression: unknown type.");
-};
-
+}
 
 function numberToExpression(value: number): ts.Expression {
   if (Number.isNaN(value)) {
     return ts.factory.createIdentifier("NaN");
   }
-  const absExpr = (Math.abs(value) === Infinity)
-    ? ts.factory.createIdentifier("Infinity")
-    : ts.factory.createNumericLiteral(Math.abs(value))
+  const absExpr =
+    Math.abs(value) === Infinity
+      ? ts.factory.createIdentifier("Infinity")
+      : ts.factory.createNumericLiteral(Math.abs(value));
   return value < 0
-    ? ts.factory.createPrefixUnaryExpression(
-        ts.SyntaxKind.MinusToken,
-        absExpr,
-      )
+    ? ts.factory.createPrefixUnaryExpression(ts.SyntaxKind.MinusToken, absExpr)
     : absExpr;
 }
 
@@ -94,10 +94,10 @@ function objectToExpression(obj: object): ts.Expression {
   return ts.factory.createObjectLiteralExpression(
     Object.entries(obj).map(([key, value]) => {
       return ts.factory.createPropertyAssignment(
-          ts.factory.createStringLiteral(key),
-          valueToExpression(value)
+        ts.factory.createStringLiteral(key),
+        valueToExpression(value),
       );
     }),
-    true
+    true,
   );
 }

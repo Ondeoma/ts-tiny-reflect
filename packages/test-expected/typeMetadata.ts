@@ -36,10 +36,10 @@ import tiny_reflect from "@ondeoma/ts-tiny-reflect/macros";
     }
 });
 
-function voidFn() { }
+function _voidFn() { }
 ({
     "kind": "function",
-    "name": "voidFn",
+    "name": "_voidFn",
     "params": [],
     "returns": {
         "kind": "void"

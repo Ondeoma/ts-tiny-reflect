@@ -2,7 +2,8 @@
 
 import { TypeMeta } from "./macros/typeMetadata";
 
-const errorMessage: string = "This function is a macro and should be transformed by ts-tiny-reflect at compile time.";
+const errorMessage: string =
+  "This function is a macro and should be transformed by ts-tiny-reflect at compile time.";
 
 /// For test porpose.
 export function hello(): "hello" {
@@ -10,6 +11,6 @@ export function hello(): "hello" {
 }
 
 /// Extract type metadata.
-export function typeMetadata<T>(): TypeMeta {
+export function typeMetadata<_T>(): TypeMeta {
   throw errorMessage;
 }
