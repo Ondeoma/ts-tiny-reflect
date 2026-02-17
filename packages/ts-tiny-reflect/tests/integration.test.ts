@@ -44,6 +44,7 @@ describe('Integration Test: packages/test-source', () => {
       })
     }
     matchIt("hello");
+    matchIt("typeMetadata");
   })
 
 });
