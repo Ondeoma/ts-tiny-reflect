@@ -42,4 +42,32 @@ export const DiagnosticMessage = {
       messageText: `Macro "${name}" is defined in type but not implemented.`
     };
   },
+  TypeDeterminationFailed() {
+    return {
+      category: ts.DiagnosticCategory.Error,
+      code: 26001,
+      messageText: `Type determination failed. Fallback to unknown.`
+    };
+  },
+  BigIntNotSupported() {
+    return {
+      category: ts.DiagnosticCategory.Error,
+      code: 26002,
+      messageText: `BitInt is not supported yet.`
+    };
+  },
+  GettingCallSignatureFailed() {
+    return {
+      category: ts.DiagnosticCategory.Error,
+      code: 26003,
+      messageText: `Getting call signature failed.`
+    };
+  },
+  GettingTypeArgsFailed() {
+    return {
+      category: ts.DiagnosticCategory.Error,
+      code: 26004,
+      messageText: `Getting type arguments failed.`
+    };
+  },
 } satisfies Record<string, (params: any) => DiagnosticMessage>;

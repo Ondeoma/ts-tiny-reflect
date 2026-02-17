@@ -25,6 +25,12 @@ export type RecursivePartial<T> = {
       : T[P];
 };
 
+export function isObjectType(type: ts.Type): type is ts.ObjectType {
+  return (type.flags & ts.TypeFlags.Object) !== 0;
+}
+export function isTypeReference(type: ts.ObjectType): type is ts.TypeReference {
+  return (type.objectFlags & ts.ObjectFlags.Reference) !== 0;
+}
 
 export type SerializableValue = 
   | null 
