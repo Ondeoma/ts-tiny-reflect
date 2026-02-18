@@ -6,8 +6,8 @@
   "scripts": {
     "prepare": "ts-patch install -s",
     "build": "tspc",
-    "prettier": "prettier src --check",
-    "prettier:fix": "prettier src --write"
+    "prettier": "prettier . --check",
+    "prettier:fix": "prettier . --write"
   },
   "devDependencies": {
     "ts-patch": "^3.3.0",

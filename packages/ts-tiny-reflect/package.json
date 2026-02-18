@@ -29,7 +29,7 @@
   "scripts": {
     "build": "tsc",
     "prepack": "shx cp ../../README.md . && shx cp ../../LICENSE .",
-    "test": "vitest run",
+    "test": "npm run build && vitest run",
     "test:watch": "vitest",
     "prettier": "prettier src --check",
     "prettier:fix": "prettier src --write"

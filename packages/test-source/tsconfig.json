@@ -27,12 +27,12 @@
 
     // Transformers
     "plugins": [
-      {"transform": "@ondeoma/ts-tiny-reflect"},
+      { "transform": "@ondeoma/ts-tiny-reflect" },
       {
         "transform": "@ondeoma/ts-print",
         "inputDir": "",
         "outputDir": "transformed"
-      },
+      }
     ]
   },
   "include": ["**/*"]
