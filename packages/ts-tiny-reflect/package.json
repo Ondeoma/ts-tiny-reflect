@@ -1,6 +1,6 @@
 {
   "name": "@ondeoma/ts-tiny-reflect",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Reflection for TypeScript",
   "main": "dist/index.js",
   "publishConfig": {
@@ -23,7 +23,9 @@
   },
   "typesVersions": {
     "*": {
-      "macros": ["./dist/macros.d.ts"]
+      "macros": [
+        "./dist/macros.d.ts"
+      ]
     }
   },
   "scripts": {
