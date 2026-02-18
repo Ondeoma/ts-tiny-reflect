@@ -12,25 +12,24 @@ const TRANSFORMED_DIR = path.resolve(SRC_DIR, 'transformed');
 const EXPECT_DIR = path.resolve(PROJECT_ROOT, 'packages/test-expected');
 
 describe('Integration Test: packages/test-source', () => {
-  // clean up
+  let transformedSources: ReturnType<typeof getSources>;
   beforeAll(() => {
+    // clean up
     if (fs.existsSync(TRANSFORMED_DIR)) {
       fs.rmSync(TRANSFORMED_DIR, { recursive: true, force: true });
     }
+    execSync('npm run build:test-source', { 
+      cwd: PROJECT_ROOT, 
+      stdio: 'inherit',
+    });
+    transformedSources = getSources(SRC_DIR, TRANSFORMED_DIR);
   });
 
   it('should printed successfully', () => {
-    expect(() => {
-      execSync('npm run build:test-source', { 
-        cwd: PROJECT_ROOT, 
-        stdio: 'inherit',
-      });
-    }).not.toThrow();
     expect(fs.existsSync(TRANSFORMED_DIR)).toBe(true);
   });
 
   describe('Test: Each macro', () => {
-    const transformedSources = getSources(SRC_DIR, TRANSFORMED_DIR);
     const expectedSources = getSources(SRC_DIR, EXPECT_DIR);
     const printer = ts.createPrinter({
       newLine: ts.NewLineKind.LineFeed,
