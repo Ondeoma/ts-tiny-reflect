@@ -27,8 +27,8 @@ function createMacroVisitor(
   }
 
   const location: string = path.resolve(declaration.getSourceFile().fileName);
-  const libTypesLocation = path.join("ts-tiny-reflect", "dist", `types.d.ts`);
-  if (location.includes(libTypesLocation)) {
+  const libTypesLocation = path.join("ts-tiny-reflect", "dist", `macros.d.ts`);
+  if (!location.includes(libTypesLocation)) {
     return undefined;
   }
 
