@@ -1,4 +1,15 @@
-import tiny_reflect, {ArrayType, FunctionType, IntersectionType, LiteralType, NeverType, ObjectType, PrimitiveType, TupleType, TypedObjectType, UnionType} from "@ondeoma/ts-tiny-reflect/macros";
+import tiny_reflect, {
+  ArrayType,
+  FunctionType,
+  IntersectionType,
+  LiteralType,
+  NeverType,
+  ObjectType,
+  PrimitiveType,
+  TupleType,
+  TypedObjectType,
+  UnionType,
+} from "@ondeoma/ts-tiny-reflect/macros";
 
 const _never: NeverType = tiny_reflect.typeMetadata<never>();
 
@@ -21,7 +32,8 @@ type SimpleObj = {
   num: number;
   str: string;
 };
-const _obj: TypedObjectType<SimpleObj> | IntersectionType = tiny_reflect.typeMetadata<SimpleObj>();
+const _obj: TypedObjectType<SimpleObj> | IntersectionType =
+  tiny_reflect.typeMetadata<SimpleObj>();
 tiny_reflect.objectMetadata<SimpleObj>();
 
 type ComplexObj = {
@@ -29,12 +41,17 @@ type ComplexObj = {
   arrObj?: SimpleObj[];
 };
 tiny_reflect.typeMetadata<ComplexObj>();
-const complexObjMeta: TypedObjectType<ComplexObj> = tiny_reflect.objectMetadata<ComplexObj>();
-const _memberNames = complexObjMeta.members.map(member => member?.name) satisfies (undefined | keyof ComplexObj)[]
+const complexObjMeta: TypedObjectType<ComplexObj> =
+  tiny_reflect.objectMetadata<ComplexObj>();
+const _memberNames = complexObjMeta.members.map(
+  (member) => member?.name,
+) satisfies (undefined | keyof ComplexObj)[];
 
 type RecObj = {
   self: RecObj;
 };
 tiny_reflect.typeMetadata<RecObj>();
 
-const _intersection: ObjectType | IntersectionType = tiny_reflect.typeMetadata<SimpleObj & ComplexObj>();
+const _intersection: ObjectType | IntersectionType = tiny_reflect.typeMetadata<
+  SimpleObj & ComplexObj
+>();
