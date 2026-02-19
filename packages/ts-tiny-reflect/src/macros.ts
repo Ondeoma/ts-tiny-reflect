@@ -1,7 +1,13 @@
 //! These types shows what the macros should return.
 
-import { TypeMeta } from "./macros/typeMetadata/types";
-import { TypedObjectType } from "./macros/typeMetadata/userTypes";
+import {
+  NarrowedTypeMeta,
+  TypedObjectType,
+} from "./macros/typeMetadata/userTypes";
+export type {
+  NarrowedTypeMeta,
+  TypedObjectType,
+} from "./macros/typeMetadata/userTypes";
 
 const errorMessage: string =
   "This function is a macro and should be transformed by ts-tiny-reflect at compile time.";
@@ -12,7 +18,7 @@ export function hello(): "hello" {
 }
 
 /// Extract type metadata.
-export function typeMetadata<_T>(): TypeMeta {
+export function typeMetadata<T>(): NarrowedTypeMeta<T> {
   throw errorMessage;
 }
 
