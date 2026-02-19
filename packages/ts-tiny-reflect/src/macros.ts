@@ -1,6 +1,7 @@
 //! These types shows what the macros should return.
 
-import { ObjectType, TypeMeta } from "./macros/typeMetadata";
+import { TypeMeta } from "./macros/typeMetadata/types";
+import { TypedObjectType } from "./macros/typeMetadata/userTypes";
 
 const errorMessage: string =
   "This function is a macro and should be transformed by ts-tiny-reflect at compile time.";
@@ -19,16 +20,3 @@ export function typeMetadata<_T>(): TypeMeta {
 export function objectMetadata<T extends object>(): TypedObjectType<T> {
   throw errorMessage;
 }
-export type TypedObjectType<T = unknown> = {
-  kind: "object";
-  name?: string;
-  members: {
-    [K in keyof T]: ObjectMember<K>;
-  }[keyof T][];
-};
-export type ObjectMember<K extends PropertyKey> = {
-  name: K;
-  type: TypeMeta;
-  optional: boolean;
-  readonly: boolean;
-};
