@@ -15,6 +15,6 @@
   },
   "dependencies": {
     "@ondeoma/ts-tiny-reflect": "^0.0.2",
-    "@ondeoma/ts-print": "^0.0.0"
+    "@ondeoma/ts-print": "^0.0.3"
   }
 }
