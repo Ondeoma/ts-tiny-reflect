@@ -8,6 +8,21 @@ export type {
   NarrowedTypeMeta,
   TypedObjectType,
 } from "./macros/typeMetadata/userTypes";
+export type {
+  AnyType,
+  UnknownType,
+  NeverType,
+  VoidType,
+  PrimitiveType,
+  LiteralType,
+  ArrayType,
+  TupleType,
+  FunctionType,
+  ObjectType,
+  UnionType,
+  IntersectionType,
+  ReferenceType,
+} from "./macros/typeMetadata/types";
 
 const errorMessage: string =
   "This function is a macro and should be transformed by ts-tiny-reflect at compile time.";
