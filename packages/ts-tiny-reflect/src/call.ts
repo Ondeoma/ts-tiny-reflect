@@ -4,7 +4,10 @@ import path from "node:path";
 
 import { ContextBag, MacroVisitorCreator, Options } from "./common";
 import { hello } from "./macros/hello";
-import { objectMetadata, typeMetadata } from "./macros/typeMetadata";
+import {
+  objectMetadata,
+  typeMetadata,
+} from "./macros/typeMetadata/typeMetadata";
 import { createDiagnostic, DiagnosticMessage } from "./diagnosticMessages";
 
 const macroVisitorCreators: Record<string, MacroVisitorCreator> = {

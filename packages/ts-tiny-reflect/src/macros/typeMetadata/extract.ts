@@ -1,106 +1,24 @@
 import ts from "typescript";
-import { ContextBag, MacroVisitorCreator } from "../common";
-import { isObjectType, isTypeReference, valueToExpression } from "../utils";
-import { createDiagnostic, DiagnosticMessage } from "../diagnosticMessages";
+import { ContextBag } from "../../common";
+import { isObjectType, isTypeReference } from "../../utils";
+import { createDiagnostic, DiagnosticMessage } from "../../diagnosticMessages";
+import {
+  AnyType,
+  ArrayType,
+  FunctionType,
+  IntersectionType,
+  LiteralType,
+  NeverType,
+  ObjectType,
+  PrimitiveType,
+  TupleType,
+  TypeMeta,
+  UnionType,
+  UnknownType,
+  VoidType,
+} from "./types";
 
-type TypeKind =
-  | "any"
-  | "unknown"
-  | "never"
-  | "void"
-  | "primitive"
-  | "literal"
-  | "array"
-  | "tuple"
-  | "function"
-  | "object"
-  | "union"
-  | "intersection"
-  | "reference";
-interface ITypeMeta {
-  kind: TypeKind;
-}
-function _assertITypeMeta(value: TypeMeta): ITypeMeta {
-  return value;
-}
-
-export type TypeMeta =
-  | AnyType
-  | UnknownType
-  | NeverType
-  | VoidType
-  | PrimitiveType
-  | LiteralType
-  | ArrayType
-  | TupleType
-  | FunctionType
-  | ObjectType
-  | UnionType
-  | IntersectionType
-  | ReferenceType;
-
-export type AnyType = { kind: "any" };
-export type UnknownType = { kind: "unknown" };
-export type NeverType = { kind: "never" };
-export type VoidType = { kind: "void" };
-
-export type PrimitiveType = {
-  kind: "primitive";
-  typeName: "string" | "number" | "boolean" | "undefined";
-};
-
-export type LiteralType = {
-  kind: "literal";
-  value: string | number | boolean | null;
-};
-
-export type ArrayType = {
-  kind: "array";
-  type: TypeMeta;
-};
-
-export type TupleType = {
-  kind: "tuple";
-  elements: TypeMeta[];
-};
-
-export type FunctionType = {
-  kind: "function";
-  name?: string;
-  params: {
-    name: string;
-    type: TypeMeta;
-  }[];
-  returns: TypeMeta;
-};
-
-export type ObjectType = {
-  kind: "object";
-  name?: string;
-  members: {
-    name: string;
-    type: TypeMeta;
-    optional: boolean;
-    readonly: boolean;
-  }[];
-};
-
-export type UnionType = {
-  kind: "union";
-  types: TypeMeta[];
-};
-
-export type IntersectionType = {
-  kind: "intersection";
-  types: TypeMeta[];
-};
-
-export type ReferenceType = {
-  kind: "reference";
-  name?: string;
-};
-
-function extractTypeMetadata(
+export function extractTypeMetadata(
   context: ContextBag,
   type: ts.Type,
   node: ts.Node,
@@ -278,7 +196,7 @@ function tryIntoFunctionTypeMeta(
   }
 }
 
-function tryIntoObjectTypeMeta(
+export function tryIntoObjectTypeMeta(
   context: ContextBag,
   type: ts.Type,
   node: ts.Node,
@@ -317,80 +235,3 @@ function tryIntoObjectTypeMeta(
     };
   }
 }
-
-function extractTypeArguments(
-  context: ContextBag,
-  node: ts.CallExpression,
-): readonly ts.Type[] | undefined {
-  const originalCallExpression = ts.getOriginalNode(node);
-  if (!ts.isCallExpression(originalCallExpression)) {
-    return undefined;
-  }
-
-  const signature = context.checker.getResolvedSignature(
-    originalCallExpression,
-  );
-  if (!signature) {
-    const diag = DiagnosticMessage.GettingCallSignatureFailed();
-    context.extra.addDiagnostic(createDiagnostic(node, diag));
-    return undefined;
-  }
-  const typeArgs =
-    context.checker.getTypeArgumentsForResolvedSignature(signature);
-
-  return typeArgs;
-}
-
-export const typeMetadata = ((
-  context: ContextBag,
-  _call: ts.CallExpression,
-) => {
-  const visitor = (node: ts.Node): ts.Expression => {
-    if (!ts.isCallExpression(node)) {
-      throw new Error("Macro call must be a CallExpression.");
-    }
-
-    const typeArgs = extractTypeArguments(context, node);
-    if (typeArgs === undefined || 1 !== typeArgs.length) {
-      const diag = DiagnosticMessage.GettingTypeArgsFailed();
-      context.extra.addDiagnostic(createDiagnostic(node, diag));
-      return node;
-    }
-
-    const metadata = extractTypeMetadata(context, typeArgs[0]!, node);
-    return valueToExpression(metadata);
-  };
-  return visitor;
-}) satisfies MacroVisitorCreator;
-
-export const objectMetadata = ((
-  context: ContextBag,
-  _call: ts.CallExpression,
-) => {
-  const visitor = (node: ts.Node): ts.Expression => {
-    if (!ts.isCallExpression(node)) {
-      throw new Error("Macro call must be a CallExpression.");
-    }
-
-    const typeArgs = extractTypeArguments(context, node);
-    if (typeArgs === undefined || 1 !== typeArgs.length) {
-      const diag = DiagnosticMessage.GettingTypeArgsFailed();
-      context.extra.addDiagnostic(createDiagnostic(node, diag));
-      return node;
-    }
-
-    const metadata = tryIntoObjectTypeMeta(
-      context,
-      typeArgs[0]!,
-      node,
-      new Set(),
-    );
-    if (!metadata) {
-      const diag = DiagnosticMessage.MismatchWithTypeAssumptions();
-      context.extra.addDiagnostic(createDiagnostic(node, diag));
-      return node;
-    }
-    return valueToExpression(metadata);
-  };
-  return visitor;
-}) satisfies MacroVisitorCreator;

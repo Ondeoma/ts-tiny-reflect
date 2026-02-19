@@ -35,5 +35,6 @@
       }
     ]
   },
-  "include": ["**/*"]
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules", "transformed", "dist"]
 }
