@@ -7,7 +7,6 @@ import {
   IntersectionType,
   LiteralType,
   NeverType,
-  ObjectType,
   PrimitiveType,
   TupleType,
   TypeMeta,
@@ -20,7 +19,7 @@ export type TypedObjectType<T = unknown> = {
   kind: "object";
   name?: string;
   members: {
-    [K in keyof T]: ObjectMember<K>;
+    [K in keyof T]-?: ObjectMember<K>;
   }[keyof T][];
 };
 export type ObjectMember<K extends PropertyKey> = {
@@ -91,6 +90,6 @@ export type NarrowedTypeMeta<T> =
                             ? FunctionType
                             : // Object (including Intersection)
                               T extends object
-                              ? ObjectType | IntersectionType
+                              ? TypedObjectType<T> | IntersectionType
                               : // Fallback
                                 TypeMeta;

@@ -8,7 +8,7 @@ const _1: LiteralType = tiny_reflect.typeMetadata<1>();
 
 const _true: LiteralType = tiny_reflect.typeMetadata<true>();
 
-const _tuble: TupleType = tiny_reflect.typeMetadata<[number, string]>();
+const _tuple: TupleType = tiny_reflect.typeMetadata<[number, string]>();
 
 const _arr: ArrayType = tiny_reflect.typeMetadata<string[]>();
 
@@ -21,7 +21,7 @@ type SimpleObj = {
   num: number;
   str: string;
 };
-const _obj: ObjectType | IntersectionType = tiny_reflect.typeMetadata<SimpleObj>();
+const _obj: TypedObjectType<SimpleObj> | IntersectionType = tiny_reflect.typeMetadata<SimpleObj>();
 tiny_reflect.objectMetadata<SimpleObj>();
 
 type ComplexObj = {

@@ -1,4 +1,4 @@
-import tiny_reflect, { ArrayType, FunctionType, IntersectionType, LiteralType, NeverType, ObjectType, PrimitiveType, TupleType, TypedObjectType, UnionType } from "@ondeoma/ts-tiny-reflect/macros";
+import tiny_reflect, { ArrayType, FunctionType, IntersectionType, LiteralType, NeverType, ObjectType, PrimitiveType, TupleType, TypedObjectType, UnionType, } from "@ondeoma/ts-tiny-reflect/macros";
 const _never: NeverType = {
     "kind": "never"
 };
@@ -14,7 +14,7 @@ const _true: LiteralType = {
     "kind": "literal",
     "value": true
 };
-const _tuble: TupleType = {
+const _tuple: TupleType = {
     "kind": "tuple",
     "elements": [
         {
@@ -60,7 +60,7 @@ type SimpleObj = {
     num: number;
     str: string;
 };
-const _obj: ObjectType | IntersectionType = {
+const _obj: TypedObjectType<SimpleObj> | IntersectionType = {
     "kind": "object",
     "name": "SimpleObj",
     "members": [
@@ -227,7 +227,7 @@ const complexObjMeta: TypedObjectType<ComplexObj> = {
         }
     ]
 };
-const _memberNames = complexObjMeta.members.map(member => member?.name) satisfies (undefined | keyof ComplexObj)[];
+const _memberNames = complexObjMeta.members.map((member) => member?.name) satisfies (undefined | keyof ComplexObj)[];
 type RecObj = {
     self: RecObj;
 };
