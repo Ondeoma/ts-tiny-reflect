@@ -2,8 +2,21 @@ import ts from "typescript";
 import { ContextBag } from "../../common";
 import { isObjectType, isTypeReference } from "../../utils";
 import { createDiagnostic, DiagnosticMessage } from "../../diagnosticMessages";
-import { AnyType, ArrayType, FunctionType, IntersectionType, LiteralType, NeverType, ObjectType, PrimitiveType, TupleType, TypeMeta, UnionType, UnknownType, VoidType } from "./types";
-
+import {
+  AnyType,
+  ArrayType,
+  FunctionType,
+  IntersectionType,
+  LiteralType,
+  NeverType,
+  ObjectType,
+  PrimitiveType,
+  TupleType,
+  TypeMeta,
+  UnionType,
+  UnknownType,
+  VoidType,
+} from "./types";
 
 export function extractTypeMetadata(
   context: ContextBag,

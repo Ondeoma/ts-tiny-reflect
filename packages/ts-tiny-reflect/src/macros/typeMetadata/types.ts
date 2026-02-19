@@ -1,4 +1,3 @@
-
 type TypeKind =
   | "any"
   | "unknown"

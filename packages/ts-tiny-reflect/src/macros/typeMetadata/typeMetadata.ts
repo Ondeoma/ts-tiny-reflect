@@ -1,9 +1,8 @@
 import ts from "typescript";
 import { ContextBag, MacroVisitorCreator } from "../../common";
-import { isObjectType, isTypeReference, valueToExpression } from "../../utils";
+import { valueToExpression } from "../../utils";
 import { createDiagnostic, DiagnosticMessage } from "../../diagnosticMessages";
 import { extractTypeMetadata, tryIntoObjectTypeMeta } from "./extract";
-
 
 function extractTypeArguments(
   context: ContextBag,
