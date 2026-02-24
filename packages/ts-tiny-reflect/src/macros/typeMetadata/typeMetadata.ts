@@ -2,7 +2,7 @@ import ts from "typescript";
 import { ContextBag, MacroVisitorCreator } from "../../common";
 import { valueToExpression } from "../../utils";
 import { createDiagnostic, DiagnosticMessage } from "../../diagnosticMessages";
-import { extractTypeMetadata, tryIntoObjectTypeMeta } from "./extract";
+import { extractTypeMetadata, tryIntoObjectTypeMeta, TypeTracker } from "./extract";
 
 function extractTypeArguments(
   context: ContextBag,
@@ -69,7 +69,7 @@ export const objectMetadata = ((
       context,
       typeArgs[0]!,
       node,
-      new Set(),
+      TypeTracker.empty(),
     );
     if (!metadata) {
       const diag = DiagnosticMessage.MismatchWithTypeAssumptions();

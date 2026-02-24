@@ -11,6 +11,7 @@ import {
   NeverType,
   ObjectType,
   PrimitiveType,
+  ReferenceType,
   TupleType,
   TypeMeta,
   UnionType,
@@ -18,21 +19,56 @@ import {
   VoidType,
 } from "./types";
 
+export class TypeTracker {
+  private constructor(
+    readonly types: ReadonlySet<ts.Type>,
+    readonly symbols: ReadonlySet<ts.Symbol>,
+  ) {}
+
+  static empty(): TypeTracker {
+    return new TypeTracker(new Set(), new Set());
+  }
+
+  has(type: ts.Type): boolean {
+    if (this.types.has(type)) return true;
+    const symbol = type.aliasSymbol || type.getSymbol();
+    if (symbol && this.symbols.has(symbol)) return true;
+    return false;
+  }
+
+  update(type: ts.Type): TypeTracker {
+    const symbol = type.aliasSymbol || type.getSymbol();
+    const nextTypes = new Set(this.types).add(type);
+    const nextSymbols = symbol
+      ? new Set(this.symbols).add(symbol)
+      : this.symbols;
+    
+    return new TypeTracker(nextTypes, nextSymbols);
+  }
+
+  get size(): number {
+    return this.types.size;
+  }
+}
+
 export function extractTypeMetadata(
   context: ContextBag,
   type: ts.Type,
   node: ts.Node,
-  visited = new Set<ts.Type>(),
+  visited = TypeTracker.empty(),
 ): TypeMeta {
+  // TODO: diag: too big visited, returning unknown
+
   if (visited.has(type)) {
     const name =
       type.aliasSymbol?.name || type.getSymbol()?.name || "anonymous";
     return { kind: "reference", name };
   }
-  const nextVisited = new Set(visited).add(type);
+  const nextVisited = visited.update(type);
 
   const typeMeta =
     tryIntoSpecialTypeMeta(context, type) ||
+    tryIntoTypeParameterMeta(context, type) ||
     tryIntoLiteralTypeMeta(context, type, node) ||
     tryIntoPrimitiveTypeMeta(context, type) ||
     tryIntoTupleTypeMeta(context, type, node, nextVisited) ||
@@ -45,8 +81,12 @@ export function extractTypeMetadata(
     return typeMeta;
   }
 
-  const diag = DiagnosticMessage.TypeDeterminationFailed();
+  const diag = DiagnosticMessage.TypeDeterminationFailed(context.checker.typeToString(type));
   context.extra.addDiagnostic(createDiagnostic(node, diag));
+
+  const typeStrs = [...visited.types.entries().map(([t]) => context.checker.typeToString(t))];
+  console.log(`Tracked: ${typeStrs}`);
+
   return { kind: "unknown" };
 }
 
@@ -59,6 +99,18 @@ function tryIntoSpecialTypeMeta(
   if (flags & ts.TypeFlags.Unknown) return { kind: "unknown" };
   if (flags & ts.TypeFlags.Never) return { kind: "never" };
   if (flags & ts.TypeFlags.Void) return { kind: "void" };
+}
+
+function tryIntoTypeParameterMeta(
+  context: ContextBag,
+  type: ts.Type,
+): ReferenceType | undefined {
+  if (type.isTypeParameter()) {
+    return {
+      kind: "reference",
+      name: type.symbol?.name || type.aliasSymbol?.name || "anonymous",
+    };
+  }
 }
 
 function tryIntoLiteralTypeMeta(
@@ -108,7 +160,7 @@ function tryIntoTupleTypeMeta(
   context: ContextBag,
   type: ts.Type,
   node: ts.Node,
-  visited: Set<ts.Type>,
+  visited: TypeTracker,
 ): TupleType | undefined {
   if (
     context.checker.isTupleType(type) &&
@@ -126,7 +178,7 @@ function tryIntoArrayTypeMeta(
   context: ContextBag,
   type: ts.Type,
   node: ts.Node,
-  visited: Set<ts.Type>,
+  visited: TypeTracker,
 ): ArrayType | undefined {
   if (
     context.checker.isArrayType(type) &&
@@ -148,7 +200,7 @@ function tryIntoAlgebraicTypeMeta(
   context: ContextBag,
   type: ts.Type,
   node: ts.Node,
-  visited: Set<ts.Type>,
+  visited: TypeTracker,
 ): UnionType | IntersectionType | undefined {
   if (type.isUnion()) {
     return {
@@ -172,7 +224,7 @@ function tryIntoFunctionTypeMeta(
   context: ContextBag,
   type: ts.Type,
   node: ts.Node,
-  visited: Set<ts.Type>,
+  visited: TypeTracker,
 ): FunctionType | undefined {
   const callSignatures = type.getCallSignatures();
   // Though it may have multiple callsignatures, simply use last one for now.
@@ -200,7 +252,7 @@ export function tryIntoObjectTypeMeta(
   context: ContextBag,
   type: ts.Type,
   node: ts.Node,
-  visited: Set<ts.Type>,
+  visited: TypeTracker,
 ): ObjectType | undefined {
   if (isObjectType(type)) {
     const props = type.getProperties();
