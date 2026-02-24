@@ -42,11 +42,11 @@ export const DiagnosticMessage = {
       messageText: `Macro "${name}" is defined in type but not implemented.`,
     };
   },
-  TypeDeterminationFailed() {
+  TypeDeterminationFailed(typeString: string) {
     return {
       category: ts.DiagnosticCategory.Error,
       code: 26001,
-      messageText: `Type determination failed. Fallback to unknown.`,
+      messageText: `Type determination failed. Fallback to unknown. Type string is: ${typeString}`,
     };
   },
   BigIntNotSupported() {
