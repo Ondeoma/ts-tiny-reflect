@@ -1,5 +1,11 @@
 # @ondeoma/ts-tiny-reflect
 
+## 0.0.4
+
+### Patch Changes
+
+- 1b7580f: fix typeMetadata for recursive type, generic func
+
 ## 0.0.3
 
 ### Patch Changes
