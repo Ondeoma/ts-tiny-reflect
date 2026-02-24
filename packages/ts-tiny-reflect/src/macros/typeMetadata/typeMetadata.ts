@@ -2,7 +2,11 @@ import ts from "typescript";
 import { ContextBag, MacroVisitorCreator } from "../../common";
 import { valueToExpression } from "../../utils";
 import { createDiagnostic, DiagnosticMessage } from "../../diagnosticMessages";
-import { extractTypeMetadata, tryIntoObjectTypeMeta, TypeTracker } from "./extract";
+import {
+  extractTypeMetadata,
+  tryIntoObjectTypeMeta,
+  TypeTracker,
+} from "./extract";
 
 function extractTypeArguments(
   context: ContextBag,

@@ -52,15 +52,17 @@ type RecObj = {
 };
 tiny_reflect.typeMetadata<RecObj>();
 
-function _genericFn<T, U>(arg: T): U {
+function _genericFn<T, U>(_arg: T): U {
   throw new Error();
 }
-const _genericFnMeta: FunctionType = tiny_reflect.typeMetadata<typeof _genericFn>();
+const _genericFnMeta: FunctionType =
+  tiny_reflect.typeMetadata<typeof _genericFn>();
 
 interface GenericMethodObject {
   map<T, U>(array: T[], callback: (item: T) => U): U[];
 }
-const _genericMethodMeta: ObjectType | IntersectionType = tiny_reflect.typeMetadata<GenericMethodObject>();
+const _genericMethodMeta: ObjectType | IntersectionType =
+  tiny_reflect.typeMetadata<GenericMethodObject>();
 
 function _asyncFn(): Promise<number> {
   return Promise.resolve(1);

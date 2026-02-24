@@ -246,7 +246,7 @@ type RecObj = {
         }
     ]
 });
-function _genericFn<T, U>(arg: T): U {
+function _genericFn<T, U>(_arg: T): U {
     throw new Error();
 }
 const _genericFnMeta: FunctionType = {
@@ -254,7 +254,7 @@ const _genericFnMeta: FunctionType = {
     "name": "_genericFn",
     "params": [
         {
-            "name": "arg",
+            "name": "_arg",
             "type": {
                 "kind": "reference",
                 "name": "T"

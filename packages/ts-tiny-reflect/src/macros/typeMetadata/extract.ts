@@ -42,7 +42,7 @@ export class TypeTracker {
     const nextSymbols = symbol
       ? new Set(this.symbols).add(symbol)
       : this.symbols;
-    
+
     return new TypeTracker(nextTypes, nextSymbols);
   }
 
@@ -81,11 +81,10 @@ export function extractTypeMetadata(
     return typeMeta;
   }
 
-  const diag = DiagnosticMessage.TypeDeterminationFailed(context.checker.typeToString(type));
+  const diag = DiagnosticMessage.TypeDeterminationFailed(
+    context.checker.typeToString(type),
+  );
   context.extra.addDiagnostic(createDiagnostic(node, diag));
-
-  const typeStrs = [...visited.types.entries().map(([t]) => context.checker.typeToString(t))];
-  console.log(`Tracked: ${typeStrs}`);
 
   return { kind: "unknown" };
 }
