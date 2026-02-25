@@ -1,5 +1,11 @@
 # @ondeoma/ts-tiny-reflect
 
+## 0.0.5
+
+### Patch Changes
+
+- d95d327: fix typeMetadata to support symbol
+
 ## 0.0.4
 
 ### Patch Changes
