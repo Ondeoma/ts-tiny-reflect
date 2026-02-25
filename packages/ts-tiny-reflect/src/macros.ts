@@ -23,6 +23,21 @@ export type {
   IntersectionType,
   ReferenceType,
 } from "./macros/typeMetadata/types";
+export {
+  isAnyType,
+  isUnknownType,
+  isNeverType,
+  isVoidType,
+  isPrimitiveType,
+  isLiteralType,
+  isArrayType,
+  isTupleType,
+  isFunctionType,
+  isObjectType,
+  isUnionType,
+  isIntersectionType,
+  isReferenceType,
+} from "./macros/typeMetadata/guards";
 
 const errorMessage: string =
   "This function is a macro and should be transformed by ts-tiny-reflect at compile time.";
