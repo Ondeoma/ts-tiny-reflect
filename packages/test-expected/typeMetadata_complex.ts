@@ -161,519 +161,56 @@ const _genericMethodMeta: ObjectType | IntersectionType = {
         }
     ]
 } as const;
-function _asyncFn(): Promise<number> {
-    return Promise.resolve(1);
-}
-const _promiseMeta: FunctionType = {
-    "kind": "function",
-    "name": "_asyncFn",
-    "params": [],
-    "returns": {
-        "kind": "object",
-        "name": "Promise",
-        "members": [
-            {
+type MyPromiseLike<T> = {
+    then<TResult>(onfulfilled: (value: T) => TResult | MyPromiseLike<TResult>): MyPromiseLike<TResult>;
+};
+const _myPromiseLikeMeta: ObjectType | IntersectionType = {
+    "kind": "object",
+    "name": "MyPromiseLike",
+    "members": [
+        {
+            "name": "then",
+            "type": {
+                "kind": "function",
                 "name": "then",
-                "type": {
-                    "kind": "function",
-                    "name": "then",
-                    "params": [
-                        {
-                            "name": "onfulfilled",
-                            "type": {
-                                "kind": "union",
-                                "types": [
-                                    {
+                "params": [
+                    {
+                        "name": "onfulfilled",
+                        "type": {
+                            "kind": "function",
+                            "name": "__type",
+                            "params": [
+                                {
+                                    "name": "value",
+                                    "type": {
                                         "kind": "primitive",
-                                        "typeName": "undefined"
-                                    },
-                                    {
-                                        "kind": "literal",
-                                        "value": null
-                                    },
-                                    {
-                                        "kind": "function",
-                                        "name": "__type",
-                                        "params": [
-                                            {
-                                                "name": "value",
-                                                "type": {
-                                                    "kind": "primitive",
-                                                    "typeName": "number"
-                                                }
-                                            }
-                                        ],
-                                        "returns": {
-                                            "kind": "union",
-                                            "types": [
-                                                {
-                                                    "kind": "reference",
-                                                    "name": "TResult1"
-                                                },
-                                                {
-                                                    "kind": "object",
-                                                    "name": "PromiseLike",
-                                                    "members": [
-                                                        {
-                                                            "name": "then",
-                                                            "type": {
-                                                                "kind": "function",
-                                                                "name": "then",
-                                                                "params": [
-                                                                    {
-                                                                        "name": "onfulfilled",
-                                                                        "type": {
-                                                                            "kind": "union",
-                                                                            "types": [
-                                                                                {
-                                                                                    "kind": "primitive",
-                                                                                    "typeName": "undefined"
-                                                                                },
-                                                                                {
-                                                                                    "kind": "literal",
-                                                                                    "value": null
-                                                                                },
-                                                                                {
-                                                                                    "kind": "function",
-                                                                                    "name": "__type",
-                                                                                    "params": [
-                                                                                        {
-                                                                                            "name": "value",
-                                                                                            "type": {
-                                                                                                "kind": "reference",
-                                                                                                "name": "TResult1"
-                                                                                            }
-                                                                                        }
-                                                                                    ],
-                                                                                    "returns": {
-                                                                                        "kind": "union",
-                                                                                        "types": [
-                                                                                            {
-                                                                                                "kind": "reference",
-                                                                                                "name": "TResult1"
-                                                                                            },
-                                                                                            {
-                                                                                                "kind": "reference",
-                                                                                                "name": "PromiseLike"
-                                                                                            }
-                                                                                        ]
-                                                                                    }
-                                                                                }
-                                                                            ]
-                                                                        }
-                                                                    },
-                                                                    {
-                                                                        "name": "onrejected",
-                                                                        "type": {
-                                                                            "kind": "union",
-                                                                            "types": [
-                                                                                {
-                                                                                    "kind": "primitive",
-                                                                                    "typeName": "undefined"
-                                                                                },
-                                                                                {
-                                                                                    "kind": "literal",
-                                                                                    "value": null
-                                                                                },
-                                                                                {
-                                                                                    "kind": "function",
-                                                                                    "name": "__type",
-                                                                                    "params": [
-                                                                                        {
-                                                                                            "name": "reason",
-                                                                                            "type": {
-                                                                                                "kind": "any"
-                                                                                            }
-                                                                                        }
-                                                                                    ],
-                                                                                    "returns": {
-                                                                                        "kind": "union",
-                                                                                        "types": [
-                                                                                            {
-                                                                                                "kind": "reference",
-                                                                                                "name": "TResult2"
-                                                                                            },
-                                                                                            {
-                                                                                                "kind": "reference",
-                                                                                                "name": "PromiseLike"
-                                                                                            }
-                                                                                        ]
-                                                                                    }
-                                                                                }
-                                                                            ]
-                                                                        }
-                                                                    }
-                                                                ],
-                                                                "returns": {
-                                                                    "kind": "reference",
-                                                                    "name": "PromiseLike"
-                                                                }
-                                                            },
-                                                            "optional": false,
-                                                            "readonly": false
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        }
+                                        "typeName": "number"
                                     }
-                                ]
-                            }
-                        },
-                        {
-                            "name": "onrejected",
-                            "type": {
+                                }
+                            ],
+                            "returns": {
                                 "kind": "union",
                                 "types": [
                                     {
-                                        "kind": "primitive",
-                                        "typeName": "undefined"
+                                        "kind": "reference",
+                                        "name": "TResult"
                                     },
                                     {
-                                        "kind": "literal",
-                                        "value": null
-                                    },
-                                    {
-                                        "kind": "function",
-                                        "name": "__type",
-                                        "params": [
-                                            {
-                                                "name": "reason",
-                                                "type": {
-                                                    "kind": "any"
-                                                }
-                                            }
-                                        ],
-                                        "returns": {
-                                            "kind": "union",
-                                            "types": [
-                                                {
-                                                    "kind": "reference",
-                                                    "name": "TResult2"
-                                                },
-                                                {
-                                                    "kind": "object",
-                                                    "name": "PromiseLike",
-                                                    "members": [
-                                                        {
-                                                            "name": "then",
-                                                            "type": {
-                                                                "kind": "function",
-                                                                "name": "then",
-                                                                "params": [
-                                                                    {
-                                                                        "name": "onfulfilled",
-                                                                        "type": {
-                                                                            "kind": "union",
-                                                                            "types": [
-                                                                                {
-                                                                                    "kind": "primitive",
-                                                                                    "typeName": "undefined"
-                                                                                },
-                                                                                {
-                                                                                    "kind": "literal",
-                                                                                    "value": null
-                                                                                },
-                                                                                {
-                                                                                    "kind": "function",
-                                                                                    "name": "__type",
-                                                                                    "params": [
-                                                                                        {
-                                                                                            "name": "value",
-                                                                                            "type": {
-                                                                                                "kind": "reference",
-                                                                                                "name": "TResult2"
-                                                                                            }
-                                                                                        }
-                                                                                    ],
-                                                                                    "returns": {
-                                                                                        "kind": "union",
-                                                                                        "types": [
-                                                                                            {
-                                                                                                "kind": "reference",
-                                                                                                "name": "TResult1"
-                                                                                            },
-                                                                                            {
-                                                                                                "kind": "reference",
-                                                                                                "name": "PromiseLike"
-                                                                                            }
-                                                                                        ]
-                                                                                    }
-                                                                                }
-                                                                            ]
-                                                                        }
-                                                                    },
-                                                                    {
-                                                                        "name": "onrejected",
-                                                                        "type": {
-                                                                            "kind": "union",
-                                                                            "types": [
-                                                                                {
-                                                                                    "kind": "primitive",
-                                                                                    "typeName": "undefined"
-                                                                                },
-                                                                                {
-                                                                                    "kind": "literal",
-                                                                                    "value": null
-                                                                                },
-                                                                                {
-                                                                                    "kind": "function",
-                                                                                    "name": "__type",
-                                                                                    "params": [
-                                                                                        {
-                                                                                            "name": "reason",
-                                                                                            "type": {
-                                                                                                "kind": "any"
-                                                                                            }
-                                                                                        }
-                                                                                    ],
-                                                                                    "returns": {
-                                                                                        "kind": "union",
-                                                                                        "types": [
-                                                                                            {
-                                                                                                "kind": "reference",
-                                                                                                "name": "TResult2"
-                                                                                            },
-                                                                                            {
-                                                                                                "kind": "reference",
-                                                                                                "name": "PromiseLike"
-                                                                                            }
-                                                                                        ]
-                                                                                    }
-                                                                                }
-                                                                            ]
-                                                                        }
-                                                                    }
-                                                                ],
-                                                                "returns": {
-                                                                    "kind": "reference",
-                                                                    "name": "PromiseLike"
-                                                                }
-                                                            },
-                                                            "optional": false,
-                                                            "readonly": false
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        }
+                                        "kind": "reference",
+                                        "name": "MyPromiseLike"
                                     }
                                 ]
                             }
                         }
-                    ],
-                    "returns": {
-                        "kind": "reference",
-                        "name": "Promise"
                     }
-                },
-                "optional": false,
-                "readonly": false
+                ],
+                "returns": {
+                    "kind": "reference",
+                    "name": "MyPromiseLike"
+                }
             },
-            {
-                "name": "catch",
-                "type": {
-                    "kind": "function",
-                    "name": "catch",
-                    "params": [
-                        {
-                            "name": "onrejected",
-                            "type": {
-                                "kind": "union",
-                                "types": [
-                                    {
-                                        "kind": "primitive",
-                                        "typeName": "undefined"
-                                    },
-                                    {
-                                        "kind": "literal",
-                                        "value": null
-                                    },
-                                    {
-                                        "kind": "function",
-                                        "name": "__type",
-                                        "params": [
-                                            {
-                                                "name": "reason",
-                                                "type": {
-                                                    "kind": "any"
-                                                }
-                                            }
-                                        ],
-                                        "returns": {
-                                            "kind": "union",
-                                            "types": [
-                                                {
-                                                    "kind": "reference",
-                                                    "name": "TResult"
-                                                },
-                                                {
-                                                    "kind": "object",
-                                                    "name": "PromiseLike",
-                                                    "members": [
-                                                        {
-                                                            "name": "then",
-                                                            "type": {
-                                                                "kind": "function",
-                                                                "name": "then",
-                                                                "params": [
-                                                                    {
-                                                                        "name": "onfulfilled",
-                                                                        "type": {
-                                                                            "kind": "union",
-                                                                            "types": [
-                                                                                {
-                                                                                    "kind": "primitive",
-                                                                                    "typeName": "undefined"
-                                                                                },
-                                                                                {
-                                                                                    "kind": "literal",
-                                                                                    "value": null
-                                                                                },
-                                                                                {
-                                                                                    "kind": "function",
-                                                                                    "name": "__type",
-                                                                                    "params": [
-                                                                                        {
-                                                                                            "name": "value",
-                                                                                            "type": {
-                                                                                                "kind": "reference",
-                                                                                                "name": "TResult"
-                                                                                            }
-                                                                                        }
-                                                                                    ],
-                                                                                    "returns": {
-                                                                                        "kind": "union",
-                                                                                        "types": [
-                                                                                            {
-                                                                                                "kind": "reference",
-                                                                                                "name": "TResult1"
-                                                                                            },
-                                                                                            {
-                                                                                                "kind": "reference",
-                                                                                                "name": "PromiseLike"
-                                                                                            }
-                                                                                        ]
-                                                                                    }
-                                                                                }
-                                                                            ]
-                                                                        }
-                                                                    },
-                                                                    {
-                                                                        "name": "onrejected",
-                                                                        "type": {
-                                                                            "kind": "union",
-                                                                            "types": [
-                                                                                {
-                                                                                    "kind": "primitive",
-                                                                                    "typeName": "undefined"
-                                                                                },
-                                                                                {
-                                                                                    "kind": "literal",
-                                                                                    "value": null
-                                                                                },
-                                                                                {
-                                                                                    "kind": "function",
-                                                                                    "name": "__type",
-                                                                                    "params": [
-                                                                                        {
-                                                                                            "name": "reason",
-                                                                                            "type": {
-                                                                                                "kind": "any"
-                                                                                            }
-                                                                                        }
-                                                                                    ],
-                                                                                    "returns": {
-                                                                                        "kind": "union",
-                                                                                        "types": [
-                                                                                            {
-                                                                                                "kind": "reference",
-                                                                                                "name": "TResult2"
-                                                                                            },
-                                                                                            {
-                                                                                                "kind": "reference",
-                                                                                                "name": "PromiseLike"
-                                                                                            }
-                                                                                        ]
-                                                                                    }
-                                                                                }
-                                                                            ]
-                                                                        }
-                                                                    }
-                                                                ],
-                                                                "returns": {
-                                                                    "kind": "reference",
-                                                                    "name": "PromiseLike"
-                                                                }
-                                                            },
-                                                            "optional": false,
-                                                            "readonly": false
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-                    ],
-                    "returns": {
-                        "kind": "reference",
-                        "name": "Promise"
-                    }
-                },
-                "optional": false,
-                "readonly": false
-            },
-            {
-                "name": "finally",
-                "type": {
-                    "kind": "function",
-                    "name": "finally",
-                    "params": [
-                        {
-                            "name": "onfinally",
-                            "type": {
-                                "kind": "union",
-                                "types": [
-                                    {
-                                        "kind": "primitive",
-                                        "typeName": "undefined"
-                                    },
-                                    {
-                                        "kind": "literal",
-                                        "value": null
-                                    },
-                                    {
-                                        "kind": "function",
-                                        "name": "__type",
-                                        "params": [],
-                                        "returns": {
-                                            "kind": "void"
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-                    ],
-                    "returns": {
-                        "kind": "reference",
-                        "name": "Promise"
-                    }
-                },
-                "optional": false,
-                "readonly": false
-            },
-            {
-                "name": "__@toStringTag@286",
-                "type": {
-                    "kind": "primitive",
-                    "typeName": "string"
-                },
-                "optional": false,
-                "readonly": true
-            }
-        ]
-    }
+            "optional": false,
+            "readonly": false
+        }
+    ]
 } as const;
