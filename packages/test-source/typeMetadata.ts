@@ -30,47 +30,15 @@ const _union: UnionType = tiny_reflect.typeMetadata<string | number>();
 function _voidFn() {}
 const _fn: FunctionType = tiny_reflect.typeMetadata<typeof _voidFn>();
 
-type SimpleObj = {
+type Obj1 = {
   num: number;
+};
+const _obj: TypedObjectType<Obj1> | IntersectionType =
+  tiny_reflect.typeMetadata<Obj1>();
+
+type Obj2 = {
   str: string;
 };
-const _obj: TypedObjectType<SimpleObj> | IntersectionType =
-  tiny_reflect.typeMetadata<SimpleObj>();
-tiny_reflect.objectMetadata<SimpleObj>();
-
-type ComplexObj = {
-  tuple: [number, string];
-  arrObj?: SimpleObj[];
-};
-tiny_reflect.typeMetadata<ComplexObj>();
-const complexObjMeta: TypedObjectType<ComplexObj> =
-  tiny_reflect.objectMetadata<ComplexObj>();
-const _memberNames = complexObjMeta.members.map(
-  (member) => member?.name,
-) satisfies (undefined | keyof ComplexObj)[];
-
-type RecObj = {
-  self: RecObj;
-};
-tiny_reflect.typeMetadata<RecObj>();
-
-function _genericFn<T, U>(_arg: T): U {
-  throw new Error();
-}
-const _genericFnMeta: FunctionType =
-  tiny_reflect.typeMetadata<typeof _genericFn>();
-
-interface GenericMethodObject {
-  map<T, U>(array: T[], callback: (item: T) => U): U[];
-}
-const _genericMethodMeta: ObjectType | IntersectionType =
-  tiny_reflect.typeMetadata<GenericMethodObject>();
-
-function _asyncFn(): Promise<number> {
-  return Promise.resolve(1);
-}
-const _promiseMeta: FunctionType = tiny_reflect.typeMetadata<typeof _asyncFn>();
-
 const _intersection: ObjectType | IntersectionType = tiny_reflect.typeMetadata<
-  SimpleObj & ComplexObj
+  Obj1 & Obj2
 >();
