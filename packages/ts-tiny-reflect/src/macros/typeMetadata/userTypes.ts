@@ -77,19 +77,21 @@ export type NarrowedTypeMeta<T> =
                     : LiteralType
                   : T extends undefined
                     ? PrimitiveType
-                    : T extends null
-                      ? LiteralType
-                      : // Tuple (specialized array)
-                        IsTuple<T> extends true
-                        ? TupleType
-                        : // Array
-                          T extends Array<any>
-                          ? ArrayType
-                          : // Function
-                            T extends (...args: any[]) => any
-                            ? FunctionType
-                            : // Object (including Intersection)
-                              T extends object
-                              ? TypedObjectType<T> | IntersectionType
-                              : // Fallback
-                                TypeMeta;
+                    : T extends symbol
+                      ? PrimitiveType
+                      : T extends null
+                        ? LiteralType
+                        : // Tuple (specialized array)
+                          IsTuple<T> extends true
+                          ? TupleType
+                          : // Array
+                            T extends Array<any>
+                            ? ArrayType
+                            : // Function
+                              T extends (...args: any[]) => any
+                              ? FunctionType
+                              : // Object (including Intersection)
+                                T extends object
+                                ? TypedObjectType<T> | IntersectionType
+                                : // Fallback
+                                  TypeMeta;

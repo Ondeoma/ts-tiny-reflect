@@ -41,7 +41,7 @@ export type VoidType = { kind: "void" };
 
 export type PrimitiveType = {
   kind: "primitive";
-  typeName: "string" | "number" | "boolean" | "undefined";
+  typeName: "string" | "number" | "boolean" | "undefined" | "symbol";
 };
 
 export type LiteralType = {
