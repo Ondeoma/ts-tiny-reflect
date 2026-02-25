@@ -1,5 +1,12 @@
 # test-source
 
+## 0.1.6
+
+### Patch Changes
+
+- Updated dependencies [756dcba]
+  - @ondeoma/ts-tiny-reflect@0.0.6
+
 ## 0.1.5
 
 ### Patch Changes

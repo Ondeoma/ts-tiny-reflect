@@ -1,6 +1,6 @@
 {
   "name": "test-source",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "private": "true",
   "type": "module",
   "scripts": {
@@ -14,7 +14,7 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@ondeoma/ts-tiny-reflect": "^0.0.5",
+    "@ondeoma/ts-tiny-reflect": "^0.0.6",
     "@ondeoma/ts-print": "^0.0.3"
   }
 }
