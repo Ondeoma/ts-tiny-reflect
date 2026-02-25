@@ -1,5 +1,11 @@
 # @ondeoma/ts-tiny-reflect
 
+## 0.0.6
+
+### Patch Changes
+
+- 756dcba: narrowing returning TypeMeta as const
+
 ## 0.0.5
 
 ### Patch Changes
