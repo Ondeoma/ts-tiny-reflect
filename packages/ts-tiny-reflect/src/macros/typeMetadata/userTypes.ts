@@ -16,17 +16,17 @@ import {
 } from "./types";
 
 export type TypedObjectType<T = unknown> = {
-  kind: "object";
-  name?: string;
-  members: {
+  readonly kind: "object";
+  readonly name?: string;
+  readonly members: readonly {
     [K in keyof T]-?: ObjectMember<K>;
   }[keyof T][];
 };
 export type ObjectMember<K extends PropertyKey> = {
-  name: K;
-  type: TypeMeta;
-  optional: boolean;
-  readonly: boolean;
+  readonly name: K;
+  readonly type: TypeMeta;
+  readonly optional: boolean;
+  readonly readonly: boolean;
 };
 
 type IsUnion<T> = [T] extends [UnionToIntersection<T>] ? false : true;

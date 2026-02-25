@@ -38,8 +38,8 @@ export type SerializableValue =
   | boolean
   | number
   | string
-  | SerializableValue[]
-  | { [key: string]: SerializableValue };
+  | readonly SerializableValue[]
+  | { readonly [key: string]: SerializableValue };
 
 export function valueToExpression(value: SerializableValue): ts.Expression {
   if (value === null) {

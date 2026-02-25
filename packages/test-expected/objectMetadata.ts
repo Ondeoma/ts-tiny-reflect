@@ -26,5 +26,5 @@ const objMeta: TypedObjectType<SimpleObj> = {
             "readonly": false
         }
     ]
-};
+} as const;
 const _memberNames = objMeta.members.map((member) => member.name) satisfies (keyof SimpleObj)[];

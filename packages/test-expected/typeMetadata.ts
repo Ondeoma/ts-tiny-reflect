@@ -1,23 +1,23 @@
 import tiny_reflect, { ArrayType, FunctionType, IntersectionType, LiteralType, NeverType, ObjectType, PrimitiveType, TupleType, TypedObjectType, UnionType, } from "@ondeoma/ts-tiny-reflect/macros";
 const _never: NeverType = {
     "kind": "never"
-};
+} as const;
 const _number: PrimitiveType = {
     "kind": "primitive",
     "typeName": "number"
-};
+} as const;
 const _symbol: PrimitiveType = {
     "kind": "primitive",
     "typeName": "symbol"
-};
+} as const;
 const _1: LiteralType = {
     "kind": "literal",
     "value": 1
-};
+} as const;
 const _true: LiteralType = {
     "kind": "literal",
     "value": true
-};
+} as const;
 const _tuple: TupleType = {
     "kind": "tuple",
     "elements": [
@@ -30,14 +30,14 @@ const _tuple: TupleType = {
             "typeName": "string"
         }
     ]
-};
+} as const;
 const _arr: ArrayType = {
     "kind": "array",
     "type": {
         "kind": "primitive",
         "typeName": "string"
     }
-};
+} as const;
 const _union: UnionType = {
     "kind": "union",
     "types": [
@@ -50,7 +50,7 @@ const _union: UnionType = {
             "typeName": "number"
         }
     ]
-};
+} as const;
 function _voidFn() { }
 const _fn: FunctionType = {
     "kind": "function",
@@ -59,7 +59,7 @@ const _fn: FunctionType = {
     "returns": {
         "kind": "void"
     }
-};
+} as const;
 type Obj1 = {
     num: number;
 };
@@ -77,7 +77,7 @@ const _obj: TypedObjectType<Obj1> | IntersectionType = {
             "readonly": false
         }
     ]
-};
+} as const;
 type Obj2 = {
     str: string;
 };
@@ -115,4 +115,4 @@ const _intersection: ObjectType | IntersectionType = {
             ]
         }
     ]
-};
+} as const;

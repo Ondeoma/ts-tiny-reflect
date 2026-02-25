@@ -65,7 +65,7 @@ const _cobj = {
             "readonly": false
         }
     ]
-};
+} as const;
 type RecObj = {
     self: RecObj;
 };
@@ -83,7 +83,7 @@ const _robj = {
             "readonly": false
         }
     ]
-};
+} as const;
 function _genericFn<T, U>(_arg: T): U {
     throw new Error();
 }
@@ -103,7 +103,7 @@ const _genericFnMeta: FunctionType = {
         "kind": "reference",
         "name": "U"
     }
-};
+} as const;
 interface GenericMethodObject {
     map<T, U>(array: T[], callback: (item: T) => U): U[];
 }
@@ -160,7 +160,7 @@ const _genericMethodMeta: ObjectType | IntersectionType = {
             "readonly": false
         }
     ]
-};
+} as const;
 function _asyncFn(): Promise<number> {
     return Promise.resolve(1);
 }
@@ -676,4 +676,4 @@ const _promiseMeta: FunctionType = {
             }
         ]
     }
-};
+} as const;

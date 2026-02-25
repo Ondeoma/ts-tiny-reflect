@@ -48,7 +48,10 @@ export const typeMetadata = ((
     }
 
     const metadata = extractTypeMetadata(context, typeArgs[0]!, node);
-    return valueToExpression(metadata);
+    return ts.factory.createAsExpression(
+      valueToExpression(metadata),
+      ts.factory.createTypeReferenceNode("const", undefined),
+    );
   };
   return visitor;
 }) satisfies MacroVisitorCreator;
@@ -80,7 +83,10 @@ export const objectMetadata = ((
       context.extra.addDiagnostic(createDiagnostic(node, diag));
       return node;
     }
-    return valueToExpression(metadata);
+    return ts.factory.createAsExpression(
+      valueToExpression(metadata),
+      ts.factory.createTypeReferenceNode("const", undefined),
+    );
   };
   return visitor;
 }) satisfies MacroVisitorCreator;

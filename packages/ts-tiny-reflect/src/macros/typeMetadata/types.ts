@@ -13,7 +13,7 @@ type TypeKind =
   | "intersection"
   | "reference";
 interface ITypeMeta {
-  kind: TypeKind;
+  readonly kind: TypeKind;
 }
 function _assertITypeMeta(value: TypeMeta): ITypeMeta {
   return value;
@@ -34,63 +34,63 @@ export type TypeMeta =
   | IntersectionType
   | ReferenceType;
 
-export type AnyType = { kind: "any" };
-export type UnknownType = { kind: "unknown" };
-export type NeverType = { kind: "never" };
-export type VoidType = { kind: "void" };
+export type AnyType = { readonly kind: "any" };
+export type UnknownType = { readonly kind: "unknown" };
+export type NeverType = { readonly kind: "never" };
+export type VoidType = { readonly kind: "void" };
 
 export type PrimitiveType = {
-  kind: "primitive";
-  typeName: "string" | "number" | "boolean" | "undefined" | "symbol";
+  readonly kind: "primitive";
+  readonly typeName: "string" | "number" | "boolean" | "undefined" | "symbol";
 };
 
 export type LiteralType = {
-  kind: "literal";
-  value: string | number | boolean | null;
+  readonly kind: "literal";
+  readonly value: string | number | boolean | null;
 };
 
 export type ArrayType = {
-  kind: "array";
-  type: TypeMeta;
+  readonly kind: "array";
+  readonly type: TypeMeta;
 };
 
 export type TupleType = {
-  kind: "tuple";
-  elements: TypeMeta[];
+  readonly kind: "tuple";
+  readonly elements: TypeMeta[];
 };
 
 export type FunctionType = {
-  kind: "function";
-  name?: string;
-  params: {
-    name: string;
-    type: TypeMeta;
+  readonly kind: "function";
+  readonly name?: string;
+  readonly params: readonly {
+    readonly name: string;
+    readonly type: TypeMeta;
   }[];
-  returns: TypeMeta;
+  readonly returns: TypeMeta;
 };
 
 export type ObjectType = {
-  kind: "object";
-  name?: string;
-  members: {
-    name: string;
-    type: TypeMeta;
-    optional: boolean;
-    readonly: boolean;
+  readonly kind: "object";
+  readonly name?: string;
+  readonly members: readonly {
+    readonly name: string;
+    readonly type: TypeMeta;
+    readonly optional: boolean;
+    readonly readonly: boolean;
   }[];
 };
 
 export type UnionType = {
-  kind: "union";
-  types: TypeMeta[];
+  readonly kind: "union";
+  readonly types: TypeMeta[];
 };
 
 export type IntersectionType = {
-  kind: "intersection";
-  types: TypeMeta[];
+  readonly kind: "intersection";
+  readonly types: TypeMeta[];
 };
 
 export type ReferenceType = {
-  kind: "reference";
-  name?: string;
+  readonly kind: "reference";
+  readonly name?: string;
 };
