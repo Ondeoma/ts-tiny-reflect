@@ -1,9 +1,9 @@
 import { describe, it, expect } from 'vitest';
 
 import ts from "typescript";
-import {valueToExpression, SerializableValue} from "../src/utils"
+import {valueToExpression, SerializableValue} from "../src/utils/valueToExpression";
 
-describe('Integration Test: packages/test-source', () => {
+describe('valueToExpression', () => {
   const printer = ts.createPrinter({ newLine: ts.NewLineKind.LineFeed });
   const dummySourceFile = ts.createSourceFile('test.ts', '', ts.ScriptTarget.Latest);
 

@@ -1,6 +1,6 @@
 import ts from "typescript";
 import { ContextBag, MacroVisitorCreator } from "../../common";
-import { valueToExpression } from "../../utils";
+import { valueToExpression } from "../../utils/valueToExpression";
 import { createDiagnostic, DiagnosticMessage } from "../../diagnosticMessages";
 import {
   extractTypeMetadata,
