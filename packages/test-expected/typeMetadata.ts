@@ -6,6 +6,10 @@ const _number: PrimitiveType = {
     "kind": "primitive",
     "typeName": "number"
 };
+const _symbol: PrimitiveType = {
+    "kind": "primitive",
+    "typeName": "symbol"
+};
 const _1: LiteralType = {
     "kind": "literal",
     "value": 1
@@ -828,7 +832,7 @@ const _promiseMeta: FunctionType = {
                 "readonly": false
             },
             {
-                "name": "__@toStringTag@264",
+                "name": "__@toStringTag@265",
                 "type": {
                     "kind": "primitive",
                     "typeName": "string"

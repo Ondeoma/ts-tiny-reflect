@@ -15,6 +15,8 @@ const _never: NeverType = tiny_reflect.typeMetadata<never>();
 
 const _number: PrimitiveType = tiny_reflect.typeMetadata<number>();
 
+const _symbol: PrimitiveType = tiny_reflect.typeMetadata<symbol>();
+
 const _1: LiteralType = tiny_reflect.typeMetadata<1>();
 
 const _true: LiteralType = tiny_reflect.typeMetadata<true>();

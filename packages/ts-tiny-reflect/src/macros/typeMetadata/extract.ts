@@ -153,6 +153,8 @@ function tryIntoPrimitiveTypeMeta(
     return { kind: "primitive", typeName: "boolean" };
   if (flags & ts.TypeFlags.Undefined)
     return { kind: "primitive", typeName: "undefined" };
+  if (flags & ts.TypeFlags.ESSymbolLike)
+    return { kind: "primitive", typeName: "symbol" };
 }
 
 function tryIntoTupleTypeMeta(
