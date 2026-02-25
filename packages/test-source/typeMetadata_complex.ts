@@ -31,7 +31,10 @@ interface GenericMethodObject {
 const _genericMethodMeta: ObjectType | IntersectionType =
   tiny_reflect.typeMetadata<GenericMethodObject>();
 
-function _asyncFn(): Promise<number> {
-  return Promise.resolve(1);
-}
-const _promiseMeta: FunctionType = tiny_reflect.typeMetadata<typeof _asyncFn>();
+type MyPromiseLike<T> = {
+  then<TResult>(
+    onfulfilled: (value: T) => TResult | MyPromiseLike<TResult>,
+  ): MyPromiseLike<TResult>;
+};
+const _myPromiseLikeMeta: ObjectType | IntersectionType =
+  tiny_reflect.typeMetadata<MyPromiseLike<number>>();
