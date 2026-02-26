@@ -55,9 +55,17 @@ export function extractTypeMetadata(
   context: ContextBag,
   type: ts.Type,
   node: ts.Node,
+  depth?: number,
   visited = TypeTracker.empty(),
 ): TypeMeta {
-  // TODO: diag: too big visited, returning unknown
+  if (depth === undefined && 500 < visited.size) {
+    const diag = DiagnosticMessage.TypeNestedTooDeep();
+    context.extra.addDiagnostic(createDiagnostic(node, diag));
+    return { kind: "unknown" };
+  }
+  if (depth !== undefined && depth < visited.size) {
+    return { kind: "unknown" };
+  }
 
   if (visited.has(type)) {
     const name =
@@ -71,11 +79,11 @@ export function extractTypeMetadata(
     tryIntoTypeParameterMeta(context, type) ||
     tryIntoLiteralTypeMeta(context, type, node) ||
     tryIntoPrimitiveTypeMeta(context, type) ||
-    tryIntoTupleTypeMeta(context, type, node, nextVisited) ||
-    tryIntoArrayTypeMeta(context, type, node, nextVisited) ||
-    tryIntoAlgebraicTypeMeta(context, type, node, nextVisited) ||
-    tryIntoFunctionTypeMeta(context, type, node, nextVisited) ||
-    tryIntoObjectTypeMeta(context, type, node, nextVisited);
+    tryIntoTupleTypeMeta(context, type, node, depth, nextVisited) ||
+    tryIntoArrayTypeMeta(context, type, node, depth, nextVisited) ||
+    tryIntoAlgebraicTypeMeta(context, type, node, depth, nextVisited) ||
+    tryIntoFunctionTypeMeta(context, type, node, depth, nextVisited) ||
+    tryIntoObjectTypeMeta(context, type, node, depth, nextVisited);
 
   if (typeMeta) {
     return typeMeta;
@@ -161,6 +169,7 @@ function tryIntoTupleTypeMeta(
   context: ContextBag,
   type: ts.Type,
   node: ts.Node,
+  depth: number | undefined,
   visited: TypeTracker,
 ): TupleType | undefined {
   if (
@@ -169,7 +178,7 @@ function tryIntoTupleTypeMeta(
     isTypeReference(type)
   ) {
     const elements = (type.typeArguments || []).map((t) =>
-      extractTypeMetadata(context, t, node, visited),
+      extractTypeMetadata(context, t, node, depth, visited),
     );
     return { kind: "tuple", elements };
   }
@@ -179,6 +188,7 @@ function tryIntoArrayTypeMeta(
   context: ContextBag,
   type: ts.Type,
   node: ts.Node,
+  depth: number | undefined,
   visited: TypeTracker,
 ): ArrayType | undefined {
   if (
@@ -190,7 +200,7 @@ function tryIntoArrayTypeMeta(
     if (elementType) {
       return {
         kind: "array",
-        type: extractTypeMetadata(context, elementType, node, visited),
+        type: extractTypeMetadata(context, elementType, node, depth, visited),
       };
     }
     return { kind: "array", type: { kind: "any" } }; // Fallback
@@ -201,13 +211,14 @@ function tryIntoAlgebraicTypeMeta(
   context: ContextBag,
   type: ts.Type,
   node: ts.Node,
+  depth: number | undefined,
   visited: TypeTracker,
 ): UnionType | IntersectionType | undefined {
   if (type.isUnion()) {
     return {
       kind: "union",
       types: type.types.map((t) =>
-        extractTypeMetadata(context, t, node, visited),
+        extractTypeMetadata(context, t, node, depth, visited),
       ),
     };
   }
@@ -215,7 +226,7 @@ function tryIntoAlgebraicTypeMeta(
     return {
       kind: "intersection",
       types: type.types.map((t) =>
-        extractTypeMetadata(context, t, node, visited),
+        extractTypeMetadata(context, t, node, depth, visited),
       ),
     };
   }
@@ -225,6 +236,7 @@ function tryIntoFunctionTypeMeta(
   context: ContextBag,
   type: ts.Type,
   node: ts.Node,
+  depth: number | undefined,
   visited: TypeTracker,
 ): FunctionType | undefined {
   const callSignatures = type.getCallSignatures();
@@ -235,7 +247,7 @@ function tryIntoFunctionTypeMeta(
       const paramType = context.checker.getTypeOfSymbolAtLocation(symbol, node);
       return {
         name: symbol.name,
-        type: extractTypeMetadata(context, paramType, node, visited),
+        type: extractTypeMetadata(context, paramType, node, depth, visited),
       };
     });
     const returnType = signature.getReturnType();
@@ -244,7 +256,7 @@ function tryIntoFunctionTypeMeta(
       kind: "function",
       name: type.symbol?.name,
       params,
-      returns: extractTypeMetadata(context, returnType, node, visited),
+      returns: extractTypeMetadata(context, returnType, node, depth, visited),
     };
   }
 }
@@ -253,6 +265,7 @@ export function tryIntoObjectTypeMeta(
   context: ContextBag,
   type: ts.Type,
   node: ts.Node,
+  depth: number | undefined,
   visited: TypeTracker,
 ): ObjectType | undefined {
   if (isObjectType(type)) {
@@ -275,7 +288,7 @@ export function tryIntoObjectTypeMeta(
 
       return {
         name: symbol.name,
-        type: extractTypeMetadata(context, memberType, node, visited),
+        type: extractTypeMetadata(context, memberType, node, depth, visited),
         optional: isOptional,
         readonly: isReadonly,
       };

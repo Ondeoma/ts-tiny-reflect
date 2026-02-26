@@ -2,6 +2,7 @@ import tiny_reflect, {
   FunctionType,
   IntersectionType,
   ObjectType,
+  TypedObjectType,
 } from "@ondeoma/ts-tiny-reflect/macros";
 
 type SimpleObj = {
@@ -38,3 +39,15 @@ type MyPromiseLike<T> = {
 };
 const _myPromiseLikeMeta: ObjectType | IntersectionType =
   tiny_reflect.typeMetadata<MyPromiseLike<number>>();
+
+interface DeepNested<T> {
+  depth1: {
+    depth2: {
+      depth3: {
+        value: T;
+      };
+    };
+  };
+}
+const _deepNestedMeta: TypedObjectType<DeepNested<string>> | IntersectionType = tiny_reflect.typeMetadata<DeepNested<string>>();
+const _deepNestedMeta2: TypedObjectType<DeepNested<string>> | IntersectionType = tiny_reflect.typeMetadata<DeepNested<string>>(2);

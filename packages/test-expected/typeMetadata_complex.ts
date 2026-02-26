@@ -1,4 +1,4 @@
-import tiny_reflect, { FunctionType, IntersectionType, ObjectType, } from "@ondeoma/ts-tiny-reflect/macros";
+import tiny_reflect, { FunctionType, IntersectionType, ObjectType, TypedObjectType, } from "@ondeoma/ts-tiny-reflect/macros";
 type SimpleObj = {
     num: number;
     str: string;
@@ -208,6 +208,99 @@ const _myPromiseLikeMeta: ObjectType | IntersectionType = {
                     "kind": "reference",
                     "name": "MyPromiseLike"
                 }
+            },
+            "optional": false,
+            "readonly": false
+        }
+    ]
+} as const;
+interface DeepNested<T> {
+    depth1: {
+        depth2: {
+            depth3: {
+                value: T;
+            };
+        };
+    };
+}
+const _deepNestedMeta: TypedObjectType<DeepNested<string>> | IntersectionType = {
+    "kind": "object",
+    "name": "DeepNested",
+    "members": [
+        {
+            "name": "depth1",
+            "type": {
+                "kind": "object",
+                "name": "__type",
+                "members": [
+                    {
+                        "name": "depth2",
+                        "type": {
+                            "kind": "object",
+                            "name": "__type",
+                            "members": [
+                                {
+                                    "name": "depth3",
+                                    "type": {
+                                        "kind": "object",
+                                        "name": "__type",
+                                        "members": [
+                                            {
+                                                "name": "value",
+                                                "type": {
+                                                    "kind": "primitive",
+                                                    "typeName": "string"
+                                                },
+                                                "optional": false,
+                                                "readonly": false
+                                            }
+                                        ]
+                                    },
+                                    "optional": false,
+                                    "readonly": false
+                                }
+                            ]
+                        },
+                        "optional": false,
+                        "readonly": false
+                    }
+                ]
+            },
+            "optional": false,
+            "readonly": false
+        }
+    ]
+} as const;
+const _deepNestedMeta2: TypedObjectType<DeepNested<string>> | IntersectionType = {
+    "kind": "object",
+    "name": "DeepNested",
+    "members": [
+        {
+            "name": "depth1",
+            "type": {
+                "kind": "object",
+                "name": "__type",
+                "members": [
+                    {
+                        "name": "depth2",
+                        "type": {
+                            "kind": "object",
+                            "name": "__type",
+                            "members": [
+                                {
+                                    "name": "depth3",
+                                    "type": {
+                                        "kind": "unknown"
+                                    },
+                                    "optional": false,
+                                    "readonly": false
+                                }
+                            ]
+                        },
+                        "optional": false,
+                        "readonly": false
+                    }
+                ]
             },
             "optional": false,
             "readonly": false
