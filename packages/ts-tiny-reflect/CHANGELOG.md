@@ -1,5 +1,12 @@
 # @ondeoma/ts-tiny-reflect
 
+## 0.0.7
+
+### Patch Changes
+
+- fae7884: feature: typeMetadata can limit nest depth
+- 76c41a2: add type-guards
+
 ## 0.0.6
 
 ### Patch Changes
