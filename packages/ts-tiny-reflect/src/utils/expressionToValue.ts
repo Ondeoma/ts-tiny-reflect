@@ -98,16 +98,16 @@ export function createArrayParser<T extends ParsableValue>(
     if (!ts.isArrayLiteralExpression(resolved)) {
       return undefined;
     }
-  
+
     const parsed = resolved.elements
       .map((elemExpr) => elementParser(elemExpr, checker))
       .filter((elem) => elem !== undefined);
     if (parsed.length < resolved.elements.length) {
       return undefined;
     }
-  
+
     return parsed;
-  }
+  };
 }
 
 export type TupleFromParsers<P extends Parser<ParsableValue>[]> = {
@@ -124,16 +124,16 @@ export function createTupleParser<P extends Parser<ParsableValue>[]>(
     if (resolved.elements.length !== parsers.length) {
       return undefined;
     }
-  
+
     const parsed = parsers.map((parser, i) =>
       parser(resolved.elements[i]!, checker),
     );
     if (parsed.some((elem) => elem === undefined)) {
       return undefined;
     }
-  
+
     return parsed as TupleFromParsers<P>;
-  }
+  };
 }
 
 export type UnionFromParsers<P extends Parser<ParsableValue>[]> = {
@@ -147,7 +147,7 @@ export function createUnionParser<P extends Parser<ParsableValue>[]>(
       .values()
       .map((parser) => parser(expr, checker))
       .find((elem) => elem !== undefined);
-  
+
     return parsed as UnionFromParsers<P>;
-  }
+  };
 }

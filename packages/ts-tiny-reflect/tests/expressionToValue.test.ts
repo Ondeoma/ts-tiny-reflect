@@ -1,7 +1,6 @@
 import { describe, it, expect } from 'vitest';
 
 import ts from "typescript";
-import {valueToExpression, SerializableValue} from "../src/utils/valueToExpression";
 import { createArrayParser, createTupleParser, createUnionParser, ParsableValue, parseBoolean, parseNumber, Parser, parseString } from "../src/utils/expressionToValue";
 import { createProgramFromCode } from './utils';
 

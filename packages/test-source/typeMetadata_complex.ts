@@ -49,5 +49,7 @@ interface DeepNested<T> {
     };
   };
 }
-const _deepNestedMeta: TypedObjectType<DeepNested<string>> | IntersectionType = tiny_reflect.typeMetadata<DeepNested<string>>();
-const _deepNestedMeta2: TypedObjectType<DeepNested<string>> | IntersectionType = tiny_reflect.typeMetadata<DeepNested<string>>(2);
+const _deepNestedMeta: TypedObjectType<DeepNested<string>> | IntersectionType =
+  tiny_reflect.typeMetadata<DeepNested<string>>();
+const _deepNestedMeta2: TypedObjectType<DeepNested<string>> | IntersectionType =
+  tiny_reflect.typeMetadata<DeepNested<string>>(2);

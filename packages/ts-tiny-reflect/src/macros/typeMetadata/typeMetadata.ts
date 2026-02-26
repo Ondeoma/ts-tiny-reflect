@@ -41,7 +41,8 @@ export const typeMetadata = ((
       throw new Error("Macro call must be a CallExpression.");
     }
 
-    const depth = node.arguments[0] && parseNumber(node.arguments[0], context.checker);
+    const depth =
+      node.arguments[0] && parseNumber(node.arguments[0], context.checker);
     if (node.arguments[0] && depth === undefined) {
       const diag = DiagnosticMessage.FailedToParseArguments();
       context.extra.addDiagnostic(createDiagnostic(node.arguments[0], diag));
@@ -72,8 +73,9 @@ export const objectMetadata = ((
     if (!ts.isCallExpression(node)) {
       throw new Error("Macro call must be a CallExpression.");
     }
-    
-    const depth = node.arguments[0] && parseNumber(node.arguments[0], context.checker);
+
+    const depth =
+      node.arguments[0] && parseNumber(node.arguments[0], context.checker);
     if (node.arguments[0] && depth === undefined) {
       const diag = DiagnosticMessage.FailedToParseArguments();
       context.extra.addDiagnostic(createDiagnostic(node.arguments[0], diag));
