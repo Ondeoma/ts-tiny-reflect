@@ -1,12 +1,13 @@
 import ts from "typescript";
 import { ContextBag, MacroVisitorCreator } from "../../common";
-import { valueToExpression } from "../../utils";
+import { valueToExpression } from "../../utils/valueToExpression";
 import { createDiagnostic, DiagnosticMessage } from "../../diagnosticMessages";
 import {
   extractTypeMetadata,
   tryIntoObjectTypeMeta,
   TypeTracker,
 } from "./extract";
+import { parseNumber } from "../../utils/expressionToValue";
 
 function extractTypeArguments(
   context: ContextBag,
@@ -40,6 +41,14 @@ export const typeMetadata = ((
       throw new Error("Macro call must be a CallExpression.");
     }
 
+    const depth =
+      node.arguments[0] && parseNumber(node.arguments[0], context.checker);
+    if (node.arguments[0] && depth === undefined) {
+      const diag = DiagnosticMessage.FailedToParseArguments();
+      context.extra.addDiagnostic(createDiagnostic(node.arguments[0], diag));
+      return node;
+    }
+
     const typeArgs = extractTypeArguments(context, node);
     if (typeArgs === undefined || 1 !== typeArgs.length) {
       const diag = DiagnosticMessage.GettingTypeArgsFailed();
@@ -47,7 +56,7 @@ export const typeMetadata = ((
       return node;
     }
 
-    const metadata = extractTypeMetadata(context, typeArgs[0]!, node);
+    const metadata = extractTypeMetadata(context, typeArgs[0]!, node, depth);
     return ts.factory.createAsExpression(
       valueToExpression(metadata),
       ts.factory.createTypeReferenceNode("const", undefined),
@@ -65,6 +74,14 @@ export const objectMetadata = ((
       throw new Error("Macro call must be a CallExpression.");
     }
 
+    const depth =
+      node.arguments[0] && parseNumber(node.arguments[0], context.checker);
+    if (node.arguments[0] && depth === undefined) {
+      const diag = DiagnosticMessage.FailedToParseArguments();
+      context.extra.addDiagnostic(createDiagnostic(node.arguments[0], diag));
+      return node;
+    }
+
     const typeArgs = extractTypeArguments(context, node);
     if (typeArgs === undefined || 1 !== typeArgs.length) {
       const diag = DiagnosticMessage.GettingTypeArgsFailed();
@@ -76,6 +93,7 @@ export const objectMetadata = ((
       context,
       typeArgs[0]!,
       node,
+      depth,
       TypeTracker.empty(),
     );
     if (!metadata) {

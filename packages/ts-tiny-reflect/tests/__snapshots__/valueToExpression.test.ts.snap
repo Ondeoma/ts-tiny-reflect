@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Integration Test: packages/test-source > should handle arrays 1`] = `
+exports[`valueToExpression > should handle arrays 1`] = `
 "[
     1,
     2,
@@ -8,7 +8,7 @@ exports[`Integration Test: packages/test-source > should handle arrays 1`] = `
 ]"
 `;
 
-exports[`Integration Test: packages/test-source > should handle arrays 2`] = `
+exports[`valueToExpression > should handle arrays 2`] = `
 "[
     "a",
     "b",
@@ -16,9 +16,9 @@ exports[`Integration Test: packages/test-source > should handle arrays 2`] = `
 ]"
 `;
 
-exports[`Integration Test: packages/test-source > should handle arrays 3`] = `"[]"`;
+exports[`valueToExpression > should handle arrays 3`] = `"[]"`;
 
-exports[`Integration Test: packages/test-source > should handle complex objects 1`] = `
+exports[`valueToExpression > should handle complex objects 1`] = `
 "{
     "id": 1,
     "name": "User",
@@ -33,19 +33,19 @@ exports[`Integration Test: packages/test-source > should handle complex objects 
 }"
 `;
 
-exports[`Integration Test: packages/test-source > should handle primitive types 1`] = `"123"`;
+exports[`valueToExpression > should handle primitive types 1`] = `"123"`;
 
-exports[`Integration Test: packages/test-source > should handle primitive types 2`] = `""hello""`;
+exports[`valueToExpression > should handle primitive types 2`] = `""hello""`;
 
-exports[`Integration Test: packages/test-source > should handle primitive types 3`] = `"true"`;
+exports[`valueToExpression > should handle primitive types 3`] = `"true"`;
 
-exports[`Integration Test: packages/test-source > should handle primitive types 4`] = `"false"`;
+exports[`valueToExpression > should handle primitive types 4`] = `"false"`;
 
-exports[`Integration Test: packages/test-source > should handle primitive types 5`] = `"null"`;
+exports[`valueToExpression > should handle primitive types 5`] = `"null"`;
 
-exports[`Integration Test: packages/test-source > should handle primitive types 6`] = `"undefined"`;
+exports[`valueToExpression > should handle primitive types 6`] = `"undefined"`;
 
-exports[`Integration Test: packages/test-source > should handle undefined inside objects 1`] = `
+exports[`valueToExpression > should handle undefined inside objects 1`] = `
 "{
     "required": true,
     "optional": undefined

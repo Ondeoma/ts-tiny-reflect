@@ -35,6 +35,13 @@ export function createDiagnostic(
 }
 
 export const DiagnosticMessage = {
+  DebugMessage(message: string) {
+    return {
+      category: ts.DiagnosticCategory.Message,
+      code: 25999,
+      messageText: message,
+    };
+  },
   NotImplementedMacro(name: string) {
     return {
       category: ts.DiagnosticCategory.Error,
@@ -75,6 +82,20 @@ export const DiagnosticMessage = {
       category: ts.DiagnosticCategory.Error,
       code: 26005,
       messageText: `Mismatch with type assumptions.`,
+    };
+  },
+  FailedToParseArguments() {
+    return {
+      category: ts.DiagnosticCategory.Error,
+      code: 26006,
+      messageText: `Failed to parse arguments. Try literal or const variable initialized with literal.`,
+    };
+  },
+  TypeNestedTooDeep() {
+    return {
+      category: ts.DiagnosticCategory.Warning,
+      code: 26007,
+      messageText: `Type nested too deep. Falling back to unknown.`,
     };
   },
 } satisfies Record<string, (params: any) => DiagnosticMessage>; // eslint-disable-line @typescript-eslint/no-explicit-any

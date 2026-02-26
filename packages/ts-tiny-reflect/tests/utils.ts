@@ -61,6 +61,28 @@ export function getSources(
   return new Map(sources.map(s => [path.basename(s.fileName), s]));
 }
 
+export function createProgramFromCode(
+  code: string,
+  fileName: string = "test.ts",
+  compilerOptions: ts.CompilerOptions = {
+    target: ts.ScriptTarget.ESNext,
+    module: ts.ModuleKind.CommonJS,
+    strict: true,
+  }
+): ts.Program {
+  const host = ts.createCompilerHost(compilerOptions);
+  const originalGetSourceFile = host.getSourceFile;
+
+  host.getSourceFile = (sourceFileName, languageVersion, onError, shouldCreateNewSourceFile) => {
+    if (sourceFileName === fileName) {
+      return ts.createSourceFile(fileName, code, languageVersion);
+    }
+    return originalGetSourceFile(sourceFileName, languageVersion, onError, shouldCreateNewSourceFile);
+  };
+
+  return ts.createProgram([fileName], compilerOptions, host);
+}
+
 export function matchSourceAST(
   actual: ts.SourceFile | undefined,
   expected: ts.SourceFile | undefined,

@@ -48,11 +48,13 @@ export function hello(): "hello" {
 }
 
 /// Extract type metadata.
-export function typeMetadata<T>(): NarrowedTypeMeta<T> {
+export function typeMetadata<T>(_depth?: number): NarrowedTypeMeta<T> {
   throw errorMessage;
 }
 
 /// Extract type metadata for object.
-export function objectMetadata<T extends object>(): TypedObjectType<T> {
+export function objectMetadata<T extends object>(
+  _depth?: number,
+): TypedObjectType<T> {
   throw errorMessage;
 }
