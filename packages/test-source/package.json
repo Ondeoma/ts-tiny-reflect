@@ -10,7 +10,7 @@
     "prettier:fix": "prettier . --write"
   },
   "devDependencies": {
-    "ts-patch": "^3.3.0",
+    "ts-patch": "^4.0.1",
     "typescript": "^6.0.3"
   },
   "dependencies": {
