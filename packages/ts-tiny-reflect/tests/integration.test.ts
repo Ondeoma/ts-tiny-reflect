@@ -6,7 +6,7 @@ import path from "node:path";
 import { execSync } from 'node:child_process';
 import { getSources, matchSourceAST } from './utils';
 
-const PROJECT_ROOT = process.env.PROJECT_ROOT!;
+const PROJECT_ROOT = __PROJECT_ROOT__;
 const SRC_DIR = path.resolve(PROJECT_ROOT, 'packages/test-source');
 const TRANSFORMED_DIR = path.resolve(SRC_DIR, 'transformed');
 const EXPECT_DIR = path.resolve(PROJECT_ROOT, 'packages/test-expected');
