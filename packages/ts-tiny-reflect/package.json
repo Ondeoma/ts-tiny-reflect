@@ -51,6 +51,6 @@
   },
   "devDependencies": {
     "@types/node": "^26.6.5",
-    "ts-patch": "^3.3.0"
+    "ts-patch": "^4.0.1"
   }
 }
