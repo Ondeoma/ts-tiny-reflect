@@ -1,6 +1,6 @@
 {
   "name": "@ondeoma/ts-tiny-reflect",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "description": "Reflection for TypeScript",
   "main": "dist/index.js",
   "publishConfig": {

@@ -1,5 +1,11 @@
 # @ondeoma/ts-tiny-reflect
 
+## 0.1.0
+
+### Minor Changes
+
+- ad4abb5: update dependencies
+
 ## 0.0.7
 
 ### Patch Changes
