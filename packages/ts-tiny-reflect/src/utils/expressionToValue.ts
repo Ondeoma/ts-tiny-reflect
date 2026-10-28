@@ -1,10 +1,7 @@
 import ts from "typescript";
 
 export type ParsableValue =
-  | number
-  | string
-  | boolean
-  | readonly ParsableValue[];
+  number | string | boolean | readonly ParsableValue[];
 
 export function resolveConstInitializer(
   expr: ts.Expression,
