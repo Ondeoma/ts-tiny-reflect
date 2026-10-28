@@ -1,5 +1,11 @@
 # @ondeoma/ts-tiny-reflect
 
+## 0.1.1
+
+### Patch Changes
+
+- b32e1ff: fixing release action
+
 ## 0.1.0
 
 ### Minor Changes
